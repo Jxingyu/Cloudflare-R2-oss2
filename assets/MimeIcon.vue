@@ -20,6 +20,7 @@ defineProps({
     <img v-if="thumbnail"
       :src="thumbnail"
       :width="100"
+      :height="70"
       alt="Image"
       loading="lazy"
     />
