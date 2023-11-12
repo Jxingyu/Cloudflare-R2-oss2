@@ -19,8 +19,8 @@ defineProps({
   <div class="file-icon">
     <img v-if="thumbnail"
       :src="thumbnail"
-      :width="100"
-      :height="70"
+      :width="70"
+      :height="100"
       alt="Image"
       loading="lazy"
     />
