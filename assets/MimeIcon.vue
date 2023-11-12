@@ -10,7 +10,7 @@ defineProps({
   },
   size: {
     type: Number,
-    default: 80,
+    default: 36,
   },
 });
 </script>
@@ -20,8 +20,7 @@ defineProps({
     <img
       v-if="thumbnail"
       :src="thumbnail"
-      :width="size"
-      :height="size"
+      :width="100"
       alt="Image"
       loading="lazy"
     />

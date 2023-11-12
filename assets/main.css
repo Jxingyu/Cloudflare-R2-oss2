@@ -54,12 +54,22 @@ input[type="search"] {
 }
 
 .file-item {
-  height: 64px;
+/*  height: 64px;
   padding: 8px 0;
   transition: background-color 0.2s ease-in-out;
   display: flex;
   align-items: center;
   cursor: pointer;
+  user-select: none;*/
+  height: 64px;
+  transition: background-color 0.2s ease-in-out;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
   user-select: none;
 }
 
