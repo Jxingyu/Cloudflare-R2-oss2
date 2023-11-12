@@ -398,7 +398,7 @@ export default {
     async removeFile(key) {
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${key}`);
-      this.fetchFiles();
+      // this.fetchFiles();
     },
 
     async renameFile(key) {
