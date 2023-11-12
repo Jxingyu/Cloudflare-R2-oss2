@@ -17,8 +17,7 @@ defineProps({
 
 <template>
   <div class="file-icon">
-    <img
-      v-if="thumbnail"
+    <img v-if="thumbnail"
       :src="thumbnail"
       :width="100"
       alt="Image"
