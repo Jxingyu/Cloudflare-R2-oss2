@@ -5,6 +5,7 @@
       :value="uploadProgress"
       max="100"
     ></progress>
+    
     <UploadPopup
       v-model="showUploadPopup"
       @upload="onUploadClicked"
