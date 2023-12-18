@@ -186,6 +186,9 @@
         </li>
       </ul>
     </Dialog>
+    <Dialog v-show="insertSongFlag">
+      cnm
+    </Dialog>
   </div>
 </template>
 
@@ -215,6 +218,7 @@ export default {
     showUploadPopup: false,
     uploadProgress: null,
     uploadQueue: [],
+    insertSongFlag:false,
   }),
 
   computed: {
@@ -262,6 +266,9 @@ export default {
     },
 
     fetchFiles() {
+      //登录验证
+      // alert('まずloginのソースを書きる');
+      this.insertSong();
       this.files = [];
       this.folders = [];
       this.loading = true;
@@ -279,6 +286,10 @@ export default {
           this.folders = files.folders;
           this.loading = false;
         });
+    },
+
+    insertSong(){
+      this.insertSongFlag = true;
     },
 
     formatSize(size) {
