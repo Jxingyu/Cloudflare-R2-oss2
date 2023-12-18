@@ -199,7 +199,19 @@
       </ul>
     </Dialog>
     <!-- 音频上传弹出表单 -->
-    <Dialog v-model="insertSongFlag">
+    <el-dialog
+      title="提示"
+      :visible.sync="insertSongFlag"
+      width="30%"
+      :before-close="handleClose"
+      >
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="insertSongFlag = false">取 消</el-button>
+        <el-button type="primary" @click="insertSongFlag = false"
+          >确 定</el-button
+        >
+      </span>
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称">
           <el-input v-model="form.name"></el-input>
@@ -253,7 +265,7 @@
           <el-button>取消</el-button>
         </el-form-item>
       </el-form>
-    </Dialog>
+    </el-dialog>
   </div>
 </template>
 
@@ -369,8 +381,8 @@ export default {
     },
 
     insertSongApi() {
-        console.log('submit!');
-      },
+      console.log("submit!");
+    },
 
     formatSize(size) {
       const units = ["B", "KB", "MB", "GB", "TB"];
