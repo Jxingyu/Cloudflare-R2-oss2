@@ -5,7 +5,7 @@
       :value="uploadProgress"
       max="100"
     ></progress>
-    
+
     <UploadPopup
       v-model="showUploadPopup"
       @upload="onUploadClicked"
@@ -41,7 +41,7 @@
         </button>
         <Menu
           v-model="showMenu"
-          :items="[{ text: '名称A-Z' }, { text: '大小↑' } ,{ text: '大小↓' }]"
+          :items="[{ text: '名称A-Z' }, { text: '大小↑' }, { text: '大小↓' }]"
           @click="onMenuClick"
         />
       </div>
@@ -87,13 +87,19 @@
             class="file-name"
             v-text="folder.match(/.*?([^/]*)\/?$/)[1]"
           ></span>
-          <div style="margin-right: 10px;margin-left: auto;"
+          <div
+            style="margin-right: 10px; margin-left: auto"
             @click.stop="
               showContextMenu = true;
               focusedItem = folder;
             "
-            >
-              <svg viewBox="0 0 24 24" style="height: 30px; width: 30px;"><path fill="currentColor" d="M10.5,12A1.5,1.5 0 0,1 12,10.5A1.5,1.5 0 0,1 13.5,12A1.5,1.5 0 0,1 12,13.5A1.5,1.5 0 0,1 10.5,12M10.5,16.5A1.5,1.5 0 0,1 12,15A1.5,1.5 0 0,1 13.5,16.5A1.5,1.5 0 0,1 12,18A1.5,1.5 0 0,1 10.5,16.5M10.5,7.5A1.5,1.5 0 0,1 12,6A1.5,1.5 0 0,1 13.5,7.5A1.5,1.5 0 0,1 12,9A1.5,1.5 0 0,1 10.5,7.5M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"></path></svg>
+          >
+            <svg viewBox="0 0 24 24" style="height: 30px; width: 30px">
+              <path
+                fill="currentColor"
+                d="M10.5,12A1.5,1.5 0 0,1 12,10.5A1.5,1.5 0 0,1 13.5,12A1.5,1.5 0 0,1 12,13.5A1.5,1.5 0 0,1 10.5,12M10.5,16.5A1.5,1.5 0 0,1 12,15A1.5,1.5 0 0,1 13.5,16.5A1.5,1.5 0 0,1 12,18A1.5,1.5 0 0,1 10.5,16.5M10.5,7.5A1.5,1.5 0 0,1 12,6A1.5,1.5 0 0,1 13.5,7.5A1.5,1.5 0 0,1 12,9A1.5,1.5 0 0,1 10.5,7.5M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"
+              ></path>
+            </svg>
           </div>
         </div>
       </li>
@@ -121,13 +127,19 @@
                 <span v-text="formatSize(file.size)"></span>
               </div>
             </div>
-            <div style="margin-right: 10px;margin-left: auto;"
-            @click.stop="
-              showContextMenu = true;
-              focusedItem = file;
-            "
+            <div
+              style="margin-right: 10px; margin-left: auto"
+              @click.stop="
+                showContextMenu = true;
+                focusedItem = file;
+              "
             >
-              <svg viewBox="0 0 24 24" style="height: 30px; width: 30px;"><path fill="currentColor" d="M10.5,12A1.5,1.5 0 0,1 12,10.5A1.5,1.5 0 0,1 13.5,12A1.5,1.5 0 0,1 12,13.5A1.5,1.5 0 0,1 10.5,12M10.5,16.5A1.5,1.5 0 0,1 12,15A1.5,1.5 0 0,1 13.5,16.5A1.5,1.5 0 0,1 12,18A1.5,1.5 0 0,1 10.5,16.5M10.5,7.5A1.5,1.5 0 0,1 12,6A1.5,1.5 0 0,1 13.5,7.5A1.5,1.5 0 0,1 12,9A1.5,1.5 0 0,1 10.5,7.5M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"></path></svg>
+              <svg viewBox="0 0 24 24" style="height: 30px; width: 30px">
+                <path
+                  fill="currentColor"
+                  d="M10.5,12A1.5,1.5 0 0,1 12,10.5A1.5,1.5 0 0,1 13.5,12A1.5,1.5 0 0,1 12,13.5A1.5,1.5 0 0,1 10.5,12M10.5,16.5A1.5,1.5 0 0,1 12,15A1.5,1.5 0 0,1 13.5,16.5A1.5,1.5 0 0,1 12,18A1.5,1.5 0 0,1 10.5,16.5M10.5,7.5A1.5,1.5 0 0,1 12,6A1.5,1.5 0 0,1 13.5,7.5A1.5,1.5 0 0,1 12,9A1.5,1.5 0 0,1 10.5,7.5M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"
+                ></path>
+              </svg>
             </div>
           </div>
         </div>
@@ -186,8 +198,61 @@
         </li>
       </ul>
     </Dialog>
-    <Dialog v-show="insertSongFlag">
-      cnm
+    <!-- 音频上传弹出表单 -->
+    <Dialog v-model="insertSongFlag">
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="活动名称">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="活动区域">
+          <el-select v-model="form.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="活动时间">
+          <el-col :span="11">
+            <el-date-picker
+              type="date"
+              placeholder="选择日期"
+              v-model="form.date1"
+              style="width: 100%"
+            ></el-date-picker>
+          </el-col>
+          <el-col class="line" :span="2">-</el-col>
+          <el-col :span="11">
+            <el-time-picker
+              placeholder="选择时间"
+              v-model="form.date2"
+              style="width: 100%"
+            ></el-time-picker>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="即时配送">
+          <el-switch v-model="form.delivery"></el-switch>
+        </el-form-item>
+        <el-form-item label="活动性质">
+          <el-checkbox-group v-model="form.type">
+            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
+            <el-checkbox label="地推活动" name="type"></el-checkbox>
+            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
+            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="特殊资源">
+          <el-radio-group v-model="form.resource">
+            <el-radio label="线上品牌商赞助"></el-radio>
+            <el-radio label="线下场地免费"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="活动形式">
+          <el-input type="textarea" v-model="form.desc"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="insertSongApi">立即上传</el-button>
+          <el-button>取消</el-button>
+        </el-form-item>
+      </el-form>
     </Dialog>
   </div>
 </template>
@@ -218,7 +283,17 @@ export default {
     showUploadPopup: false,
     uploadProgress: null,
     uploadQueue: [],
-    insertSongFlag:false,
+    insertSongFlag: false,
+    form: {
+      name: "",
+      region: "",
+      date1: "",
+      date2: "",
+      delivery: false,
+      type: [],
+      resource: "",
+      desc: "",
+    },
   }),
 
   computed: {
@@ -288,10 +363,14 @@ export default {
         });
     },
 
-    insertSong(){
+    insertSong() {
       this.insertSongFlag = true;
       console.log(this.insertSongFlag);
     },
+
+    insertSongApi() {
+        console.log('submit!');
+      },
 
     formatSize(size) {
       const units = ["B", "KB", "MB", "GB", "TB"];
@@ -343,7 +422,7 @@ export default {
       fileElement.value = null;
     },
 
-    preview(filePath){
+    preview(filePath) {
       window.open(filePath);
     },
 
