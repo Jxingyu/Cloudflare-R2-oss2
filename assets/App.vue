@@ -198,20 +198,9 @@
         </li>
       </ul>
     </Dialog>
+    <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
     <!-- 音频上传弹出表单 -->
-    <el-dialog
-      title="提示"
-      :visible.sync="insertSongFlag"
-      width="30%"
-      :before-close="handleClose"
-      >
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="insertSongFlag = false">取 消</el-button>
-        <el-button type="primary" @click="insertSongFlag = false"
-          >确 定</el-button
-        >
-      </span>
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称">
           <el-input v-model="form.name"></el-input>
@@ -295,7 +284,7 @@ export default {
     showUploadPopup: false,
     uploadProgress: null,
     uploadQueue: [],
-    insertSongFlag: false,
+    dialogVisible: false,
     form: {
       name: "",
       region: "",
@@ -375,9 +364,17 @@ export default {
         });
     },
 
+    handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      },
+
     insertSong() {
-      this.insertSongFlag = true;
-      console.log(this.insertSongFlag);
+      this.dialogVisible = true;
+      console.log(this.dialogVisible);
     },
 
     insertSongApi() {
