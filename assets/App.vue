@@ -290,6 +290,7 @@ export default {
 
     insertSong(){
       this.insertSongFlag = true;
+      console.log(this.insertSongFlag);
     },
 
     formatSize(size) {
