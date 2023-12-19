@@ -225,8 +225,92 @@
                 oninvalid="setCustomValidity('请输入合法的昵称>_<')"
                 required
               />
-            </div> -->
+            </div> --> 
             <div class="form-item">
+              <label>音频名</label>
+              <input
+                v-model="form.song_name"
+                type="text"
+                name="name"
+                class="text-input"
+                placeholder="请输入音频名"
+                oninput="setCustomValidity('')"
+                required
+              />
+            </div> 
+            <div class="form-item">
+              <label>音频URL</label>
+              <input
+               v-model="form.song_url"
+                type="text"
+                name="name"
+                class="text-input"
+                placeholder="请输入图片url,音频上传成功后，拿到音频url"
+                oninput="setCustomValidity('')"
+                required
+              />
+            </div>
+            <div class="form-item">
+              <label>作者</label>
+              <input
+                v-model="form.authorName"
+                type="text"
+                name="name"
+                class="text-input"
+                placeholder="请输入作者昵称"
+                oninput="setCustomValidity('')"
+                required
+              />
+            </div>
+            <div class="form-item">
+              <label>作者头像</label>
+              <input
+                v-model="form.pic_url"
+                type="text"
+                name="name"
+                class="text-input"
+                placeholder="请输入图片url"
+                oninput="setCustomValidity('')"
+                required
+              />
+            </div> 
+            <div class="form-item">
+              <label>封面URL</label>
+              <input
+                v-model="form.song_pic_url"
+                type="text"
+                name="name"
+                class="text-input"
+                placeholder="请输入音频封面url"
+                oninput="setCustomValidity('')"
+                required
+              />
+            </div>
+            <div class="form-item">
+              <label>歌词</label>
+              <textarea v-model="form.lyric" rows="10" cols="30" style="height: 40px;"></textarea>
+            </div>
+            <div class="form-item">
+              <label>音频类型</label>
+              <select v-model="form.type" name="type" id="type">
+                <option>mp3</option>
+                <option>wav</option>
+                <option>m4a</option>
+              </select>
+            </div>
+            <div class="form-item">
+              <label>音频标签</label>
+              <input
+                v-model="form.label"
+                type="text"
+                name="name"
+                class="text-input"
+                placeholder="#摇滚,#静谧,#怀旧"
+                oninput="setCustomValidity('')"
+              />
+            </div>
+            
+            <!-- <div class="form-item">
               <label>邮箱</label>
               <input
                 type="email"
@@ -256,7 +340,7 @@
                 placeholder="请输入密码"
                 required
               />
-            </div>
+            </div> -->
             <!-- <div class="form-item">
               <label>VIP</label>
               <input name="isAdult" type="checkbox" />
@@ -265,7 +349,7 @@
               <button type="reset" onmousemove="move(event)">
                 <span>重 置</span>
               </button>
-              <button type="submit" value="提 交" onmousemove="move(event)">
+              <button type="submit" value="提 交" @click="insertSongApi()">
                 <span>提 交</span>
               </button>
             </div>
@@ -303,7 +387,17 @@ export default {
     uploadProgress: null,
     uploadQueue: [],
     insertSongFlag: false,
-    title: "文件上传详情",
+    title: "文件上传",
+    /* 上传表单 */
+    form:{
+      "song_name":"",//音频名称
+      "song_url":"",//音频URL
+      "authorName":"",//作者名
+      "pic_url":"",//作者头像
+      "song_pic_url":"",//音频封面URL
+      "lyric":"",//歌词
+      "label":"",//音频标签
+    }
   }),
 
   computed: {
@@ -377,9 +471,12 @@ export default {
       this.insertSongFlag = true;
       console.log(this.insertSongFlag);
     },
-
+    
+    //音频文件上传
     insertSongApi() {
-      console.log("submit!");
+      console.log("submit!",this.form);
+      const api = "/iu/song/insert";
+      this.postFormData(this.form,api);
     },
 
     move(e) {
@@ -539,6 +636,31 @@ export default {
       this.uploadQueue.push(...uploadTasks);
       setTimeout(() => this.processUploadQueue());
     },
+
+    postFormData(obj,api) {
+      var url = "http://localhost:10000/yin/api" + api;
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // 处理成功响应
+          console.log(data);
+        })
+        .catch((error) => {
+          // 处理错误
+          console.error("There was a problem with the fetch operation:", error);
+        });
+    },
   },
 
   watch: {
@@ -652,7 +774,7 @@ export default {
 }
 
 .dialog-body {
-  max-height: 300px;
+  max-height: 420px;
   overflow-y: auto;
 }
 
