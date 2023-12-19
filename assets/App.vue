@@ -204,15 +204,72 @@
       <div class="dialog-container">
         <div class="dialog-header">
           <span class="dialog-title">{{ title }}</span>
-          <button @click="insertSongFlag = false" class="dialog-close-btn">✗</button>
+          <button @click="insertSongFlag = false" class="dialog-close-btn">
+            ✗
+          </button>
         </div>
-        <div class="dialog-body" style="display: grid;line-height: 30px;height: 140px;">
-          <input type="text">
-          <input type="text">
-          <input type="text">
-          <input type="text">
-          <input type="text">
-          <input type="text">
+        <div
+          class="dialog-body"
+          style="display: grid; line-height: 30px; height: auto"
+        >
+          <form class="form-box" id="form" onsubmit="onSubmit(event)">
+            <!-- <div class="form-item">
+              <label>昵称</label>
+              <input
+                type="text"
+                name="name"
+                class="text-input"
+                placeholder="请输入昵称(3-20个字符，仅限英文字母，数字和下划线)"
+                pattern="^[\w]{3,20}$"
+                oninput="setCustomValidity('')"
+                oninvalid="setCustomValidity('请输入合法的昵称>_<')"
+                required
+              />
+            </div> -->
+            <div class="form-item">
+              <label>邮箱</label>
+              <input
+                type="email"
+                class="text-input"
+                placeholder="请输入邮箱地址"
+                required
+              />
+            </div>
+            <div class="form-item">
+              <label>密码</label>
+              <input
+                type="password"
+                name="password"
+                class="text-input"
+                placeholder="请输入密码"
+                oninput="onPwdInput(event)"
+                required
+              />
+            </div>
+            <div class="form-item">
+              <label>确认密码</label>
+              <input
+                type="password"
+                name="password"
+                id="confirmPwd"
+                class="text-input"
+                placeholder="请输入密码"
+                required
+              />
+            </div>
+            <!-- <div class="form-item">
+              <label>VIP</label>
+              <input name="isAdult" type="checkbox" />
+            </div> -->
+            <div class="form-item">
+              <button type="reset" onmousemove="move(event)">
+                <span>重 置</span>
+              </button>
+              <button type="submit" value="提 交" onmousemove="move(event)">
+                <span>提 交</span>
+              </button>
+            </div>
+          </form>
           <slot></slot>
         </div>
       </div>
@@ -317,12 +374,27 @@ export default {
     },
 
     insertSong() {
-      this.insertSongFlag= true;
+      this.insertSongFlag = true;
       console.log(this.insertSongFlag);
     },
 
     insertSongApi() {
       console.log("submit!");
+    },
+
+    move(e) {
+      const x = e.pageX - e.target.offsetLeft;
+      const y = e.pageY - e.target.offsetTop;
+      e.target.style.setProperty("--x", `${x}px`);
+      e.target.style.setProperty("--y", `${y}px`);
+    },
+    onSubmit(e) {
+      e.preventDefault(); // 阻止表单提交
+      const form = e.target;
+      console.log(params);
+    },
+    onPwdInput(e) {
+      confirmPwd.pattern = e.target.value;
     },
 
     formatSize(size) {
@@ -555,7 +627,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-width: 80%;
-  width: 400px;
+  /* width: 400px; */
   padding: 16px;
 }
 
@@ -582,5 +654,136 @@ export default {
 .dialog-body {
   max-height: 300px;
   overflow-y: auto;
+}
+
+/* 手撸from表单 */
+
+.form-box {
+  width: 280px;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  flex: 90px 0 0;
+}
+
+label::after {
+  content: "：";
+  margin-right: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input.text-input {
+  display: block;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 35px;
+  outline: none;
+  caret-color: #09f;
+  /*光标颜色*/
+  transition: all 300ms;
+  border-left-width: 5px;
+}
+
+input.text-input:valid {
+  border-color: #3c9;
+}
+
+input.text-input:invalid {
+  border-color: #f66;
+}
+input[type="checkbox"] {
+  position: relative;
+  appearance: none; /*去除系统默认appearance的样式引发的问题*/
+  cursor: pointer;
+  transition: all 100ms;
+  border-radius: 31px;
+  width: 70px;
+  height: 40px;
+  background-color: #e9e9eb;
+  outline: none;
+  margin: 0;
+  display: inline-block;
+}
+input[type="checkbox"]::before {
+  position: absolute;
+  content: "";
+  transition: all 300ms cubic-bezier(0.45, 1, 0.4, 1);
+  border-radius: 31px;
+  width: 70px;
+  height: 40px;
+  background-color: #e9e9eb;
+}
+input[type="checkbox"]::after {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  border-radius: 27px;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px rgba(#000, 0.3);
+  content: "";
+  transition: all 300ms cubic-bezier(0.4, 0.4, 0.25, 1.35);
+}
+input[type="checkbox"]:checked {
+  background-color: #3c9;
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(0);
+}
+input[type="checkbox"]:checked::after {
+  transform: translateX(30px);
+}
+button {
+  width: 48%;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  background: #63c3ff;
+  color: #fff;
+}
+button::before {
+  --size: 0;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background-image: radial-gradient(circle closest-side, #09f, transparent);
+  content: "";
+  transform: translate3d(-50%, -50%, 0);
+  transition: width 200ms ease, height 200ms ease;
+}
+button[type="reset"] {
+  background: #6fcc6f;
+}
+button[type="reset"]::before {
+  background-image: radial-gradient(circle closest-side, #4abf4a, transparent);
+}
+button:hover::before {
+  --size: 400px;
+}
+button:first-child {
+  margin-right: 4%;
+}
+span {
+  position: relative;
+  pointer-events: none;
 }
 </style>
