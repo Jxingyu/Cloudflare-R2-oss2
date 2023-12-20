@@ -691,7 +691,7 @@ export default {
   },
   
  mounted() {
-  window.location.replace("/Login.vue")
+  // window.location.replace("/Login.vue")
 },
   components: {
     Dialog,
