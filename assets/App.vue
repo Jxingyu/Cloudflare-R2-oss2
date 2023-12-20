@@ -448,7 +448,7 @@ export default {
     fetchFiles() {
       //登录验证
       // alert('まずloginのソースを書きる');
-      this.insertSong();
+      // this.insertSong();
       this.files = [];
       this.folders = [];
       this.loading = true;
@@ -596,6 +596,7 @@ export default {
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
         }
       } catch (error) {
+        this.insertSong();
         fetch("/api/write/")
           .then((value) => {
             if (value.redirected) window.location.href = value.url;
