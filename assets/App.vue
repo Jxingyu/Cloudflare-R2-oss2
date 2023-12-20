@@ -290,14 +290,14 @@
               <label>歌词</label>
               <textarea v-model="form.lyric" rows="10" cols="30" style="height: 40px;"></textarea>
             </div>
-            <div class="form-item">
+             <!--<div class="form-item">
               <label>音频类型</label>
               <select v-model="form.type" name="type" id="type">
                 <option>mp3</option>
                 <option>wav</option>
                 <option>m4a</option>
               </select>
-            </div>
+            </div> -->
             <div class="form-item">
               <label>音频标签</label>
               <input
@@ -398,6 +398,7 @@ export default {
       lyric:"",//歌词
       type:"",//音频类型
       label:"",//音频标签
+      size:"",//音频大小
     }
   }),
 
@@ -589,9 +590,15 @@ export default {
         } else {
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
           this.insertSongFlag = true;
+          this.form.songName = file.name;
+          this.form.type = file.type;
+          this.form.size = file.size;
         }
       } catch (error) {
-        // this.insertSongFlag = true;
+        this.insertSongFlag = true;
+        this.form.songName = file.name;
+        this.form.type = file.type;
+        this.form.size = file.size;
         fetch("/api/write/")
           .then((value) => {
             if (value.redirected) window.location.href = value.url;
