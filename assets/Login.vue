@@ -139,5 +139,5 @@ import { stringify } from 'json5'
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/css/login-in.scss';
+  @import './assets/login-in.scss';
 </style>
