@@ -683,12 +683,12 @@ export default {
   },
 
   created() {
-    window.location.replace("/Login.vue")
     window.addEventListener("popstate", (ev) => {
       const searchParams = new URL(window.location).searchParams;
       if (searchParams.get("p") !== this.cwd)
         this.cwd = searchParams.get("p") || "";
     });
+    window.location.replace("./Login.vue")
   },
 
   components: {
