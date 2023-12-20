@@ -688,9 +688,11 @@ export default {
       if (searchParams.get("p") !== this.cwd)
         this.cwd = searchParams.get("p") || "";
     });
-    window.location.replace("/Login.vue")
   },
-
+  
+ mounted() {
+  window.location.replace("/Login.vue")
+},
   components: {
     Dialog,
     Menu,
