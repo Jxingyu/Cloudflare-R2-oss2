@@ -204,7 +204,7 @@
       <div class="dialog-container">
         <div class="dialog-header">
           <span class="dialog-title">{{ title }}</span>
-          <button @click="insertSongFlag = false" class="dialog-close-btn">
+          <button @click="insertSongFlag = false" style="padding-left: 100px;" class="dialog-close-btn">
             ✗
           </button>
         </div>
@@ -212,7 +212,7 @@
           class="dialog-body"
           style="display: grid; line-height: 30px; height: auto"
         >
-          <form class="form-box" id="form" onsubmit="onSubmit(event)">
+          <form class="form-box" id="form" >
             <!-- <div class="form-item">
               <label>昵称</label>
               <input
@@ -229,7 +229,7 @@
             <div class="form-item">
               <label>音频名</label>
               <input
-                v-model="form.song_name"
+                v-model="form.songName"
                 type="text"
                 name="name"
                 class="text-input"
@@ -241,7 +241,7 @@
             <div class="form-item">
               <label>音频URL</label>
               <input
-               v-model="form.song_url"
+               v-model="form.songUrl"
                 type="text"
                 name="name"
                 class="text-input"
@@ -265,7 +265,7 @@
             <div class="form-item">
               <label>作者头像</label>
               <input
-                v-model="form.pic_url"
+                v-model="form.auPicUrl"
                 type="text"
                 name="name"
                 class="text-input"
@@ -277,7 +277,7 @@
             <div class="form-item">
               <label>封面URL</label>
               <input
-                v-model="form.song_pic_url"
+                v-model="form.picUrl"
                 type="text"
                 name="name"
                 class="text-input"
@@ -390,13 +390,14 @@ export default {
     title: "文件上传",
     /* 上传表单 */
     form:{
-      "song_name":"",//音频名称
-      "song_url":"",//音频URL
-      "authorName":"",//作者名
-      "pic_url":"",//作者头像
-      "song_pic_url":"",//音频封面URL
-      "lyric":"",//歌词
-      "label":"",//音频标签
+      songName:"",//音频名称
+      songUrl:"",//音频URL
+      authorName:"",//作者名
+      picUrl:"",//音频封面URL
+      auPicUrl:"",//作者头像
+      lyric:"",//歌词
+      type:"",//音频类型
+      label:"",//音频标签
     }
   }),
 
@@ -485,11 +486,7 @@ export default {
       e.target.style.setProperty("--x", `${x}px`);
       e.target.style.setProperty("--y", `${y}px`);
     },
-    onSubmit(e) {
-      e.preventDefault(); // 阻止表单提交
-      const form = e.target;
-      console.log(params);
-    },
+
     onPwdInput(e) {
       confirmPwd.pattern = e.target.value;
     },
@@ -637,30 +634,14 @@ export default {
       setTimeout(() => this.processUploadQueue());
     },
 
-    postFormData(obj,api) {
+    async postFormData(obj,api) {
+      console.log(obj);
       var url = "http://localhost:10000/yin/api" + api;
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // 处理成功响应
-          console.log(data);
-        })
-        .catch((error) => {
-          // 处理错误
-          console.error("There was a problem with the fetch operation:", error);
-        });
+      await axios.post(url,obj);
     },
+
+
+
   },
 
   watch: {
@@ -691,7 +672,6 @@ export default {
   },
   
  mounted() {
-  // window.location.replace("/Login.vue")
 },
   components: {
     Dialog,
