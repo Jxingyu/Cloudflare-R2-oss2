@@ -594,6 +594,7 @@ export default {
           });
         } else {
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
+          this.insertSong();
         }
       } catch (error) {
         this.insertSong();
