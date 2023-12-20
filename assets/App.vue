@@ -448,7 +448,6 @@ export default {
     fetchFiles() {
       //登录验证
       // alert('まずloginのソースを書きる');
-      // this.insertSong();
       this.files = [];
       this.folders = [];
       this.loading = true;
@@ -466,11 +465,6 @@ export default {
           this.folders = files.folders;
           this.loading = false;
         });
-    },
-
-    insertSong() {
-      this.insertSongFlag = true;
-      console.log(this.insertSongFlag);
     },
     
     //音频文件上传
@@ -594,10 +588,10 @@ export default {
           });
         } else {
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
-          this.insertSong();
+          this.insertSongFlag = true;
         }
       } catch (error) {
-        this.insertSong();
+        // this.insertSongFlag = true;
         fetch("/api/write/")
           .then((value) => {
             if (value.redirected) window.location.href = value.url;
