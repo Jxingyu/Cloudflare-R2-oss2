@@ -656,12 +656,7 @@ export default {
     },
 
     async postFormData(obj, api) {
-      // console.log(obj);
-      // var url = "http://localhost:10000/yin/api" + api;
       var url = "https://www.iuui.cloud/yin/api" + api;
-      // const resp = await axios.post(url, obj, () => {
-      //   console.log(resp);
-      // });
 
       axios.post(url, {
           songName: this.form.songName,
@@ -675,7 +670,7 @@ export default {
           size: this.form.size,
         })
         .then(function (response) {
-          console.log(response);
+          alert(response.data.msg);
         })
         .catch(function (error) {
           console.log(error);
