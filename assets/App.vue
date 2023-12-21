@@ -590,9 +590,10 @@ export default {
         } else {
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
           console.log(uploadUrl);
+          const cloudUrl = "https://mycloud-6o0.pages.dev/raw/";
           this.insertSongFlag = true;
           this.form.songName = file.name;
-          this.form.songUrl = uploadUrl;
+          this.form.songUrl = cloudUrl + uploadUrl;
           this.form.type = file.type;
           this.form.size = file.size;
         }
@@ -600,7 +601,7 @@ export default {
         console.log(uploadUrl);
         this.insertSongFlag = true;
         this.form.songName = file.name;
-        this.form.songUrl = uploadUrl;
+        this.form.songUrl = cloudUrl + uploadUrl;;
         this.form.type = file.type;
         this.form.size = file.size;
         fetch("/api/write/")
