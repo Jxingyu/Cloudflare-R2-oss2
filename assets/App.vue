@@ -349,9 +349,9 @@
               <button type="reset" onmousemove="move(event)">
                 <span>重 置</span>
               </button>
-              <button type="submit" value="提 交" @click="insertSongApi()">
-                <span>提 交</span>
-              </button>
+              <div class="m-button" value="提 交" @click="insertSongApi()">
+                <span class="mm-button">提 交</span>
+              </div>
             </div>
           </form>
           <slot></slot>
@@ -589,14 +589,18 @@ export default {
           });
         } else {
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
+          console.log(uploadUrl);
           this.insertSongFlag = true;
           this.form.songName = file.name;
+          this.form.songUrl = uploadUrl;
           this.form.type = file.type;
           this.form.size = file.size;
         }
       } catch (error) {
+        console.log(uploadUrl);
         this.insertSongFlag = true;
         this.form.songName = file.name;
+        this.form.songUrl = uploadUrl;
         this.form.type = file.type;
         this.form.size = file.size;
         fetch("/api/write/")
@@ -853,6 +857,21 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:checked::after {
   transform: translateX(30px);
 }
+
+.m-button{
+  width: 48%;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  background: #63c3ff;
+  color: #fff;
+}
 button {
   width: 48%;
   height: 40px;
@@ -867,7 +886,20 @@ button {
   background: #63c3ff;
   color: #fff;
 }
+
 button::before {
+  --size: 0;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background-image: radial-gradient(circle closest-side, #09f, transparent);
+  content: "";
+  transform: translate3d(-50%, -50%, 0);
+  transition: width 200ms ease, height 200ms ease;
+}
+.m-button::before {
   --size: 0;
   position: absolute;
   left: var(--x);
@@ -882,14 +914,31 @@ button::before {
 button[type="reset"] {
   background: #6fcc6f;
 }
+.m-button[type="reset"] {
+  background: #6fcc6f;
+}
 button[type="reset"]::before {
+  background-image: radial-gradient(circle closest-side, #4abf4a, transparent);
+}
+.m-button[type="reset"]::before {
   background-image: radial-gradient(circle closest-side, #4abf4a, transparent);
 }
 button:hover::before {
   --size: 400px;
 }
+.m-button:hover::before {
+  --size: 400px;
+}
 button:first-child {
   margin-right: 4%;
+}
+.m-button:first-child {
+  margin-right: 4%;
+}
+.mm-button{
+  font-size: 14px;
+  margin-left: 49px;
+  line-height:39px;
 }
 span {
   position: relative;
