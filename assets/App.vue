@@ -471,6 +471,7 @@ export default {
     
     //音频文件上传
     insertSongApi() {
+      console.log("this.songName",this.songName);
       // 检查字段是否为空
       if (this.songName === "" || this.songUrl === ""|| this.authorName === ""|| this.picUrl === ""
       || this.auPicUrl === ""|| this.label === "") {
@@ -589,7 +590,6 @@ export default {
           });
         } else {
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
-          console.log(uploadUrl);
           const cloudUrl = "https://mycloud-6o0.pages.dev/raw/";
           this.insertSongFlag = true;
           this.form.songName = file.name;
@@ -598,7 +598,6 @@ export default {
           this.form.size = file.size;
         }
       } catch (error) {
-        console.log(uploadUrl);
         this.insertSongFlag = true;
         this.form.songName = file.name;
         this.form.songUrl = cloudUrl + uploadUrl;;
@@ -643,7 +642,7 @@ export default {
     },
 
     async postFormData(obj,api) {
-      console.log(obj);
+      // console.log(obj);
       // var url = "http://localhost:10000/yin/api" + api;
       var url = "https://www.iuui.cloud/yin/api" + api;
       await axios.post(url,obj);
