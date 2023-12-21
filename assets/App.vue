@@ -307,6 +307,7 @@
                 class="text-input"
                 placeholder="#摇滚,#静谧,#怀旧"
                 oninput="setCustomValidity('')"
+                required
               />
             </div>
             
@@ -346,7 +347,7 @@
               <input name="isAdult" type="checkbox" />
             </div> -->
             <div class="form-item">
-              <button type="reset" onmousemove="move(event)">
+              <button type="reset">
                 <span>重 置</span>
               </button>
               <div class="m-button" value="提 交" @click="insertSongApi()">
@@ -470,16 +471,15 @@ export default {
     
     //音频文件上传
     insertSongApi() {
+      // 检查字段是否为空
+      if (this.from.songName === "" || this.from.songUrl === ""|| this.from.authorName === ""|| this.from.picUrl === ""
+      || this.from.auPicUrl === ""|| this.from.label === "") {
+        return false;
+      }
+
       console.log("submit!",this.form);
       const api = "/iu/song/insert";
       this.postFormData(this.form,api);
-    },
-
-    move(e) {
-      const x = e.pageX - e.target.offsetLeft;
-      const y = e.pageY - e.target.offsetTop;
-      e.target.style.setProperty("--x", `${x}px`);
-      e.target.style.setProperty("--y", `${y}px`);
     },
 
     onPwdInput(e) {
