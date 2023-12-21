@@ -664,10 +664,20 @@ export default {
       // });
 
       axios.post(url, {
-        obj: obj,
-        }).then(function (response) {
+          songName: this.form.songName,
+          songUrl: this.form.songUrl,
+          authorName: this.form.authorName,
+          picUrl: this.form.picUrl,
+          auPicUrl: this.form.auPicUrl,
+          lyric: this.form.lyric,
+          type: this.form.type,
+          label: this.form.label,
+          size: this.form.size,
+        })
+        .then(function (response) {
           console.log(response);
-        }).catch(function (error) {
+        })
+        .catch(function (error) {
           console.log(error);
         });
         
