@@ -474,7 +474,7 @@ export default {
       // 检查字段是否为空
       if (this.songName === "" || this.songUrl === ""|| this.authorName === ""|| this.picUrl === ""
       || this.auPicUrl === ""|| this.label === "") {
-        return false;
+        return;
       }
 
       console.log("submit!",this.form);
