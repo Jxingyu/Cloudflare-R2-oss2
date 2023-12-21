@@ -471,10 +471,9 @@ export default {
     
     //音频文件上传
     insertSongApi() {
-      console.log("this.songName",this.songName);
       // 检查字段是否为空
-      if (this.songName === "" || this.songUrl === ""|| this.authorName === ""|| this.picUrl === ""
-      || this.auPicUrl === ""|| this.label === "") {
+      if (this.form.songName === "" || this.form.songUrl === ""|| this.form.authorName === ""|| this.form.picUrl === ""
+      || this.form.auPicUrl === ""|| this.form.label === "") {
         return;
       }
 
