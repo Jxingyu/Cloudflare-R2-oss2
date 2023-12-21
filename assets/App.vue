@@ -664,7 +664,7 @@ export default {
       // });
 
       axios.post(url, {
-        obj
+        obj: obj,
         }).then(function (response) {
           console.log(response);
         }).catch(function (error) {
