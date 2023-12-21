@@ -204,7 +204,11 @@
       <div class="dialog-container">
         <div class="dialog-header">
           <span class="dialog-title">{{ title }}</span>
-          <button @click="insertSongFlag = false" style="padding-left: 100px;" class="dialog-close-btn">
+          <button
+            @click="insertSongFlag = false"
+            style="padding-left: 100px"
+            class="dialog-close-btn"
+          >
             ✗
           </button>
         </div>
@@ -212,7 +216,7 @@
           class="dialog-body"
           style="display: grid; line-height: 30px; height: auto"
         >
-          <form class="form-box" id="form" >
+          <form class="form-box" id="form">
             <!-- <div class="form-item">
               <label>昵称</label>
               <input
@@ -225,7 +229,7 @@
                 oninvalid="setCustomValidity('请输入合法的昵称>_<')"
                 required
               />
-            </div> --> 
+            </div> -->
             <div class="form-item">
               <label>音频名</label>
               <input
@@ -237,11 +241,11 @@
                 oninput="setCustomValidity('')"
                 required
               />
-            </div> 
+            </div>
             <div class="form-item">
               <label>音频URL</label>
               <input
-               v-model="form.songUrl"
+                v-model="form.songUrl"
                 type="text"
                 name="name"
                 class="text-input"
@@ -273,7 +277,7 @@
                 oninput="setCustomValidity('')"
                 required
               />
-            </div> 
+            </div>
             <div class="form-item">
               <label>封面URL</label>
               <input
@@ -288,9 +292,14 @@
             </div>
             <div class="form-item">
               <label>歌词</label>
-              <textarea v-model="form.lyric" rows="10" cols="30" style="height: 40px;"></textarea>
+              <textarea
+                v-model="form.lyric"
+                rows="10"
+                cols="30"
+                style="height: 40px"
+              ></textarea>
             </div>
-             <!--<div class="form-item">
+            <!--<div class="form-item">
               <label>音频类型</label>
               <select v-model="form.type" name="type" id="type">
                 <option>mp3</option>
@@ -310,7 +319,7 @@
                 required
               />
             </div>
-            
+
             <!-- <div class="form-item">
               <label>邮箱</label>
               <input
@@ -390,17 +399,17 @@ export default {
     insertSongFlag: false,
     title: "文件上传",
     /* 上传表单 */
-    form:{
-      songName:"",//音频名称
-      songUrl:"",//音频URL
-      authorName:"",//作者名
-      picUrl:"",//音频封面URL
-      auPicUrl:"",//作者头像
-      lyric:"",//歌词
-      type:"",//音频类型
-      label:"",//音频标签
-      size:"",//音频大小
-    }
+    form: {
+      songName: "", //音频名称
+      songUrl: "", //音频URL
+      authorName: "", //作者名
+      picUrl: "", //音频封面URL
+      auPicUrl: "", //作者头像
+      lyric: "", //歌词
+      type: "", //音频类型
+      label: "", //音频标签
+      size: "", //音频大小
+    },
   }),
 
   computed: {
@@ -468,18 +477,24 @@ export default {
           this.loading = false;
         });
     },
-    
+
     //音频文件上传
     insertSongApi() {
       // 检查字段是否为空
-      if (this.form.songName === "" || this.form.songUrl === ""|| this.form.authorName === ""|| this.form.picUrl === ""
-      || this.form.auPicUrl === ""|| this.form.label === "") {
+      if (
+        this.form.songName === "" ||
+        this.form.songUrl === "" ||
+        this.form.authorName === "" ||
+        this.form.picUrl === "" ||
+        this.form.auPicUrl === "" ||
+        this.form.label === ""
+      ) {
         return;
       }
 
-      console.log("submit!",this.form);
+      console.log("submit!", this.form);
       const api = "/iu/song/insert";
-      this.postFormData(this.form,api);
+      this.postFormData(this.form, api);
     },
 
     onPwdInput(e) {
@@ -599,7 +614,7 @@ export default {
       } catch (error) {
         this.insertSongFlag = true;
         this.form.songName = file.name;
-        this.form.songUrl = cloudUrl + uploadUrl;;
+        this.form.songUrl = cloudUrl + uploadUrl;
         this.form.type = file.type;
         this.form.size = file.size;
         fetch("/api/write/")
@@ -640,17 +655,27 @@ export default {
       setTimeout(() => this.processUploadQueue());
     },
 
-    async postFormData(obj,api) {
+    async postFormData(obj, api) {
       // console.log(obj);
       // var url = "http://localhost:10000/yin/api" + api;
       var url = "https://www.iuui.cloud/yin/api" + api;
-       const resp = await axios.post(url,obj,()=>{
-        console.log(resp);
-       });
+      // const resp = await axios.post(url, obj, () => {
+      //   console.log(resp);
+      // });
+
+      axios.post(
+        url,
+          {
+            obj
+          },
+          {
+           /*  headers: {
+              "Content-Type": "multipart/form-data",
+            }, */
+          }
+        )
+        .then(({ data }) => console.log(data));
     },
-
-
-
   },
 
   watch: {
@@ -679,9 +704,8 @@ export default {
         this.cwd = searchParams.get("p") || "";
     });
   },
-  
- mounted() {
-},
+
+  mounted() {},
   components: {
     Dialog,
     Menu,
@@ -859,7 +883,7 @@ input[type="checkbox"]:checked::after {
   transform: translateX(30px);
 }
 
-.m-button{
+.m-button {
   width: 48%;
   height: 40px;
   padding: 0;
@@ -936,10 +960,10 @@ button:first-child {
 .m-button:first-child {
   margin-right: 4%;
 }
-.mm-button{
+.mm-button {
   font-size: 14px;
   margin-left: 49px;
-  line-height:39px;
+  line-height: 39px;
 }
 span {
   position: relative;
