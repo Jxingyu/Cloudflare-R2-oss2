@@ -644,9 +644,9 @@ export default {
       // console.log(obj);
       // var url = "http://localhost:10000/yin/api" + api;
       var url = "https://www.iuui.cloud/yin/api" + api;
-       const resp = await axios.post(url,obj,{
+       const resp = await axios.post(url,obj,()=>{
+        console.log(resp);
        });
-       console.log(resp);
     },
 
 
