@@ -663,18 +663,14 @@ export default {
       //   console.log(resp);
       // });
 
-      axios.post(
-        url,
-          {
-            obj
-          },
-          {
-           /*  headers: {
-              "Content-Type": "multipart/form-data",
-            }, */
-          }
-        )
-        .then(({ data }) => console.log(data));
+      axios.post(url, {
+        obj
+        }).then(function (response) {
+          console.log(response);
+        }).catch(function (error) {
+          console.log(error);
+        });
+        
     },
   },
 
