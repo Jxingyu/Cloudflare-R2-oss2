@@ -472,8 +472,8 @@ export default {
     //音频文件上传
     insertSongApi() {
       // 检查字段是否为空
-      if (this.from.songName === "" || this.from.songUrl === ""|| this.from.authorName === ""|| this.from.picUrl === ""
-      || this.from.auPicUrl === ""|| this.from.label === "") {
+      if (this.songName === "" || this.songUrl === ""|| this.authorName === ""|| this.picUrl === ""
+      || this.auPicUrl === ""|| this.label === "") {
         return false;
       }
 
