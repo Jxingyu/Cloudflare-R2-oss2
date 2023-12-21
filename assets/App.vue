@@ -639,7 +639,8 @@ export default {
 
     async postFormData(obj,api) {
       console.log(obj);
-      var url = "http://localhost:10000/yin/api" + api;
+      // var url = "http://localhost:10000/yin/api" + api;
+      var url = "https://www.iuui.cloud/yin/api" + api;
       await axios.post(url,obj);
     },
 
