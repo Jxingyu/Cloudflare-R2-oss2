@@ -631,9 +631,9 @@ export default {
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${key}`);
       var url = "https://www.iuui.cloud/yin/api/song/del";
-      axios
-        .post(url, {
+      axios.post(url, {
           songName: this.form.songName,
+          songUrl: this.form.songUrl,
         })
         .then(function (response) {
           alert(response.data.msg);
@@ -641,52 +641,53 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+      // this.fetchFiles();
     },
-    // this.fetchFiles();
-  },
 
-  async renameFile(key) {
-    const newName = window.prompt("重命名为:");
-    if (!newName) return;
-    const uploadUrl = `/api/write/items/${this.cwd}${newName}`;
-    await axios.put(uploadUrl, "", {
-      headers: { "x-amz-copy-source": encodeURIComponent(key) },
-    });
-    await axios.delete(`/api/write/items/${key}`);
-    this.fetchFiles();
-  },
-
-  uploadFiles(files) {
-    if (this.cwd && !this.cwd.endsWith("/")) this.cwd += "/";
-
-    const uploadTasks = Array.from(files).map((file) => ({
-      basedir: this.cwd,
-      file,
-    }));
-    this.uploadQueue.push(...uploadTasks);
-    setTimeout(() => this.processUploadQueue());
-  },
-
-  async postFormData(obj, api) {
-    var url = "https://www.iuui.cloud/yin/api" + api;
-    axios
-      .post(url, {
-        songName: this.form.songName,
-        songUrl: this.form.songUrl,
-        authorName: this.form.authorName,
-        picUrl: this.form.picUrl,
-        auPicUrl: this.form.auPicUrl,
-        lyric: this.form.lyric,
-        type: this.form.type,
-        label: this.form.label,
-        size: this.form.size,
-      })
-      .then(function (response) {
-        alert(response.data.msg);
-      })
-      .catch(function (error) {
-        console.log(error);
+    async renameFile(key) {
+      const newName = window.prompt("重命名为:");
+      if (!newName) return;
+      const uploadUrl = `/api/write/items/${this.cwd}${newName}`;
+      await axios.put(uploadUrl, "", {
+        headers: { "x-amz-copy-source": encodeURIComponent(key) },
       });
+      await axios.delete(`/api/write/items/${key}`);
+      this.fetchFiles();
+    },
+
+    uploadFiles(files) {
+      if (this.cwd && !this.cwd.endsWith("/")) this.cwd += "/";
+
+      const uploadTasks = Array.from(files).map((file) => ({
+        basedir: this.cwd,
+        file,
+      }));
+      this.uploadQueue.push(...uploadTasks);
+      setTimeout(() => this.processUploadQueue());
+    },
+
+    async postFormData(obj, api) {
+      var url = "https://www.iuui.cloud/yin/api" + api;
+
+      axios.post(url, {
+          songName: this.form.songName,
+          songUrl: this.form.songUrl,
+          authorName: this.form.authorName,
+          picUrl: this.form.picUrl,
+          auPicUrl: this.form.auPicUrl,
+          lyric: this.form.lyric,
+          type: this.form.type,
+          label: this.form.label,
+          size: this.form.size,
+        })
+        .then(function (response) {
+          alert(response.data.msg);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
+    },
   },
 
   watch: {
