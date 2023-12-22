@@ -603,9 +603,9 @@ export default {
             onUploadProgress,
           });
         } else {
+          this.insertSongFlag = true;
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
           const cloudUrl = "https://mycloud-6o0.pages.dev/raw/";
-          this.insertSongFlag = true;
           this.form.songName = file.name;
           this.form.songUrl = cloudUrl + uploadUrl;
           this.form.type = file.type;
