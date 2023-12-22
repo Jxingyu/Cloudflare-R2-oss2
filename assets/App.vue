@@ -595,6 +595,7 @@ export default {
         const cloudUrl = "https://mycloud-6o0.pages.dev/raw/";
         this.form.songName = file.name;
         this.form.songUrl = cloudUrl + uploadUrl;
+        this.form.songUrl = this.form.songUrl.replace("/api/write/items/","");
         this.form.type = file.type;
         this.form.size = file.size;
         this.insertSongFlag = true;
@@ -672,11 +673,10 @@ export default {
     // 上传音频
     async postFormData(obj, api) {
       var url = "https://www.iuui.cloud/yin/api" + api;
-      const songUrl = this.form.songUrl.replace("/api/write/items/","");
       try {
         const response = await axios.post(url, {
           songName: this.form.songName,
-          songUrl: songUrl,
+          songUrl: this.form.songUrl,
           authorName: this.form.authorName,
           picUrl: this.form.picUrl,
           auPicUrl: this.form.auPicUrl,
