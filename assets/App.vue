@@ -650,6 +650,8 @@ export default {
       await axios.put(uploadUrl, "", {
         headers: { "x-amz-copy-source": encodeURIComponent(key) },
       });
+
+      // 删除音频
       await axios.delete(`/api/write/items/${key}`);
       this.fetchFiles();
     },
@@ -665,11 +667,12 @@ export default {
       setTimeout(() => this.processUploadQueue());
     },
 
-    // 音频上传
+    // 上传音频
     async postFormData(obj, api) {
       var url = "https://www.iuui.cloud/yin/api" + api;
 
-      axios.post(url, {
+      try {
+        const response = await axios.post(url, {
           songName: this.form.songName,
           songUrl: this.form.songUrl,
           authorName: this.form.authorName,
@@ -679,14 +682,13 @@ export default {
           type: this.form.type,
           label: this.form.label,
           size: this.form.size,
-        }).then(function (response) {
-          alert(response.data.msg);
-          insertSongFlag = false;
-        })
-        .catch(function (error) {
-          console.log(error);
         });
-        
+
+        alert(response.data.msg);
+        this.insertSongFlag = false;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 
