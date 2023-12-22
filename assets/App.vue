@@ -665,6 +665,7 @@ export default {
       setTimeout(() => this.processUploadQueue());
     },
 
+    // 音频上传
     async postFormData(obj, api) {
       var url = "https://www.iuui.cloud/yin/api" + api;
 
@@ -680,6 +681,7 @@ export default {
           size: this.form.size,
         })
         .then(function (response) {
+          this.insertSongFlag = false;
           alert(response.data.msg);
         })
         .catch(function (error) {
