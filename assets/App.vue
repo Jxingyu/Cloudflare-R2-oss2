@@ -630,7 +630,7 @@ export default {
     async removeFile(key) {
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${key}`);
-      
+
       // 删除音频
       var url = "https://www.iuui.cloud/yin/api/iu/song/del";
       axios.post(url, {
@@ -671,11 +671,11 @@ export default {
     // 上传音频
     async postFormData(obj, api) {
       var url = "https://www.iuui.cloud/yin/api" + api;
-
+      const songUrl = this.form.songUrl.replace("/api/write/items/","");
       try {
         const response = await axios.post(url, {
           songName: this.form.songName,
-          songUrl: this.form.songUrl,
+          songUrl: songUrl,
           authorName: this.form.authorName,
           picUrl: this.form.picUrl,
           auPicUrl: this.form.auPicUrl,
