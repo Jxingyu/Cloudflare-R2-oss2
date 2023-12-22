@@ -630,7 +630,18 @@ export default {
     async removeFile(key) {
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${key}`);
-      //todo delete DB
+      var url = "https://www.iuui.cloud/yin/api/song/del";
+      axios.post(url, {
+          songName: this.form.songName,
+        })
+        .then(function (response) {
+          alert(response.data.msg);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
+    },
       // this.fetchFiles();
     },
 
