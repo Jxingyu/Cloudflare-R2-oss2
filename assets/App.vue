@@ -631,6 +631,7 @@ export default {
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${key}`);
       var url = "https://www.iuui.cloud/yin/api/iu/song/del";
+      console.log("key",key);
       axios.post(url, {
           songName: this.form.songName,
         })
