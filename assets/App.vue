@@ -630,6 +630,8 @@ export default {
     async removeFile(key) {
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${key}`);
+      
+      // 删除音频
       var url = "https://www.iuui.cloud/yin/api/iu/song/del";
       axios.post(url, {
           songName: key,
@@ -651,7 +653,6 @@ export default {
         headers: { "x-amz-copy-source": encodeURIComponent(key) },
       });
 
-      // 删除音频
       await axios.delete(`/api/write/items/${key}`);
       this.fetchFiles();
     },
