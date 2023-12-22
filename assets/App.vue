@@ -589,6 +589,7 @@ export default {
       }
 
       try {
+        this.insertSongFlag = true;
         const uploadUrl = `/api/write/items/${basedir}${file.name}`;
         const headers = {};
         const onUploadProgress = (progressEvent) => {
@@ -603,7 +604,6 @@ export default {
             onUploadProgress,
           });
         } else {
-          this.insertSongFlag = true;
           await axios.put(uploadUrl, file, { headers, onUploadProgress });
           const cloudUrl = "https://mycloud-6o0.pages.dev/raw/";
           this.form.songName = file.name;
