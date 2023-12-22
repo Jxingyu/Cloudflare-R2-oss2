@@ -633,7 +633,6 @@ export default {
       var url = "https://www.iuui.cloud/yin/api/song/del";
       axios.post(url, {
           songName: this.form.songName,
-          songUrl: this.form.songUrl,
         })
         .then(function (response) {
           alert(response.data.msg);
