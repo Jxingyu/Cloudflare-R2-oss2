@@ -6,12 +6,12 @@
       max="100"
     ></progress>
 
-    <UploadPopup
+    <UploadPopup v-if="mainFlag"
       v-model="showUploadPopup"
       @upload="onUploadClicked"
       @createFolder="createFolder"
     ></UploadPopup>
-    <button class="upload-button circle" @click="showUploadPopup = true">
+    <button v-if="mainFlag" class="upload-button circle m-button" @click="showUploadPopup = true">
       <img
         style="filter: invert(100%)"
         src="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/4.0.0/png/file/upload_file/materialicons/36dp/2x/baseline_upload_file_black_36dp.png"
@@ -21,7 +21,7 @@
         @contextmenu.prevent
       />
     </button>
-    <div class="app-bar">
+    <div class="app-bar" v-if="mainFlag">
       <input type="search" v-model="search" aria-label="Search" />
       <div class="menu-button">
         <button class="circle" @click="showMenu = true">
@@ -46,7 +46,7 @@
         />
       </div>
     </div>
-    <ul class="file-list">
+    <ul class="file-list" v-if="mainFlag">
       <li v-if="cwd !== ''">
         <div
           tabindex="0"
@@ -145,15 +145,18 @@
         </div>
       </li>
     </ul>
-    <div v-if="loading" style="margin-top: 12px; text-align: center">
-      <span>加载中...</span>
+    <div v-if="mainFlag">
+      <div v-if="loading" style="margin-top: 12px; text-align: center">
+        <span>加载中...</span>
+      </div>
+      <div
+        v-else-if="!filteredFiles.length && !filteredFolders.length"
+        style="margin-top: 12px; text-align: center"
+      >
+        <span>没有文件</span>
+      </div>
     </div>
-    <div
-      v-else-if="!filteredFiles.length && !filteredFolders.length"
-      style="margin-top: 12px; text-align: center"
-    >
-      <span>没有文件</span>
-    </div>
+
     <Dialog v-model="showContextMenu">
       <div
         v-text="focusedItem.key || focusedItem"
@@ -162,12 +165,12 @@
       ></div>
       <ul v-if="typeof focusedItem === 'string'" class="contextmenu-list">
         <li>
-          <button @click="copyLink(`/?p=${encodeURIComponent(focusedItem)}`)">
+          <button class="m-button" @click="copyLink(`/?p=${encodeURIComponent(focusedItem)}`)">
             <span>复制链接</span>
           </button>
         </li>
         <li>
-          <button
+          <button class="m-button"
             style="color: red"
             @click="removeFile(focusedItem + '_$folder$')"
           >
@@ -177,7 +180,7 @@
       </ul>
       <ul v-else class="contextmenu-list">
         <li>
-          <button @click="renameFile(focusedItem.key)">
+          <button class="m-button" @click="renameFile(focusedItem.key)">
             <span>重命名</span>
           </button>
         </li>
@@ -187,32 +190,27 @@
           </a>
         </li>
         <li>
-          <button @click="copyLink(`/raw/${focusedItem.key}`)">
+          <button class="m-button" @click="copyLink(`/raw/${focusedItem.key}`)">
             <span>复制链接</span>
           </button>
         </li>
         <li>
-          <button style="color: red" @click="removeFile(focusedItem.key)">
+          <button class="m-button" style="color: red" @click="removeFile(focusedItem.key)">
             <span>删除</span>
           </button>
         </li>
       </ul>
     </Dialog>
 
-
-    <Login>
-      
-    </Login>
-
     <!-- 音频上传弹出表单 -->
     <div v-if="insertSongFlag" class="dialog-overlay">
       <div class="dialog-container">
         <div class="dialog-header">
           <span class="dialog-title">{{ title }}</span>
-          <button
+          <button 
             @click="insertSongFlag = false"
             style="padding-left: 100px"
-            class="dialog-close-btn"
+            class="dialog-close-btn m-button"
           >
             ✗
           </button>
@@ -360,19 +358,23 @@
               <label>VIP</label>
               <input name="isAdult" type="checkbox" />
             </div> -->
-            <div class="form-item">
+            <div class="submit-btn">
               <button type="reset">
-                <span>重 置</span>
+                <span class="">重 置</span>
               </button>
-              <div class="m-button" value="提 交" @click="insertSongApi()">
-                <span class="mm-button">提 交</span>
-              </div>
+              <button class="" value="提 交" @click="insertSongApi()">
+                <span class="">提 交</span>
+              </button>
             </div>
           </form>
           <slot></slot>
         </div>
       </div>
     </div>
+
+    <Login v-if="loginFlag">
+      
+    </Login>
   </div>
 </template>
 
@@ -416,6 +418,8 @@ export default {
       label: "", //音频标签
       size: "", //音频大小
     },
+    mainFlag: true,
+    loginFlag: false,
   }),
 
   computed: {
@@ -733,6 +737,7 @@ export default {
     Menu,
     MimeIcon,
     UploadPopup,
+    Login,
   },
 };
 </script>
@@ -904,8 +909,10 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:checked::after {
   transform: translateX(30px);
 }
-
-.m-button {
+.submit-btn{
+  text-align: center;
+}
+.submit-btn button{
   width: 48%;
   height: 40px;
   padding: 0;
@@ -919,45 +926,19 @@ input[type="checkbox"]:checked::after {
   background: #63c3ff;
   color: #fff;
 }
-button {
-  width: 48%;
-  height: 40px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-  background: #63c3ff;
-  color: #fff;
+.submit-btn button::before {
+  --size: 0;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background-image: radial-gradient(circle closest-side, #09f, transparent);
+  content: "";
+  transform: translate3d(-50%, -50%, 0);
+  transition: width 200ms ease, height 200ms ease;
 }
 
-button::before {
-  --size: 0;
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--size);
-  height: var(--size);
-  background-image: radial-gradient(circle closest-side, #09f, transparent);
-  content: "";
-  transform: translate3d(-50%, -50%, 0);
-  transition: width 200ms ease, height 200ms ease;
-}
-.m-button::before {
-  --size: 0;
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--size);
-  height: var(--size);
-  background-image: radial-gradient(circle closest-side, #09f, transparent);
-  content: "";
-  transform: translate3d(-50%, -50%, 0);
-  transition: width 200ms ease, height 200ms ease;
-}
 button[type="reset"] {
   background: #6fcc6f;
 }

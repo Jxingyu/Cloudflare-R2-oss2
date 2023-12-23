@@ -1,79 +1,24 @@
 <template>
   <body>
-    <!-- 登录 -->
-    <div v-show="loginPage" class="box">
-      <h2>登录</h2>
-      <div class="input-box">
-        <input
-          placeholder="输入账号"
-          type="text"
-          v-model="loginForm.username"
-        />
-      </div>
-      <div class="input-box">
-        <input
-          placeholder="输入密码"
-          type="password"
-          v-model="loginForm.password"
-        />
-      </div>
-      <div class="btn-box">
-        <a href="#/forget-password">忘记密码?</a>
-        <div>
-          <button @click="handleleLoginIn()">登录</button>
-          <button
-            @click="
-              registerPage = true;
-              loginPage = false;
-            "
-          >
-            注册
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- 注册  -->
-    <div v-show="registerPage" class="box">
-      <h2>注册</h2>
-      <div class="input-box">
-        <input
-          placeholder="输入账号"
-          type="text"
-          v-model="loginForm.username"
-        />
-      </div>
-      <div class="input-box">
-        <input placeholder="输入邮箱" type="email" v-model="loginForm.email" />
-      </div>
-      <div class="input-box">
-        <input
-          placeholder="输入密码"
-          type="password"
-          v-model="loginForm.password"
-        />
-      </div>
-      <div class="input-box">
-        <input
-          placeholder="确认密码"
-          type="password"
-          v-model="loginForm.passwordCheck"
-        />
-      </div>
-      <div class="btn-box">
-        <div>
-          <button
-            @click="
-              registerPage = false;
-              loginPage = true;
-              register();
-            "
-          >
-            登录
-          </button>
-          <button>注册</button>
-        </div>
-      </div>
-    </div>
+    <div class="loginBox">
+		<h2>柚子システム</h2>
+		<form action="">
+			<div class="item">
+				<input type="text" required>
+				<label for="">ユーザー名</label>
+			</div>
+			<div class="item">
+				<input type="password" required>
+				<label for="">パスワード</label>
+			</div>
+			<button class="btn">ログイン
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</form>
+	</div>
   </body>
 </template>
     
@@ -121,201 +66,180 @@ export default {
   },
   mounted() {
     window.app = this;
-    this.changeIndex("登录");
   },
   methods: {
-    changeIndex(value) {
-      this.$store.commit("setActiveName", value);
-    },
-    handleleLoginIn() {
-      let _this = this;
-      let params = new URLSearchParams();
-      params.append("username", this.loginForm.username);
-      params.append("password", this.loginForm.password);
 
-      HttpManager.loginIn(params)
-        .then((res) => {
-          // console.log('-----------获取登录信息---------------')
-          document.cookie =
-            "AuthSessionId=" +
-            res.data.sessionId +
-            ";max-age=" +
-            res.data.maxInactiveInterval;
-          localStorage.setItem("token", res.data.token);
-          if (res.code === 200) {
-            _this.$message({ message: "登录成功", type: "success" });
-            _this.setUserMsg(res.data.userMsg[0]);
-            _this.$store.commit("setLoginIn", true);
-            setTimeout(function () {
-              _this.changeIndex("首页");
-              _this.$router.push({ path: "/" });
-              _this.$router.go(0);
-            }, 300);
-          } else {
-            _this.notify("用户名或密码错误", "error");
-          }
-        })
-        .catch((failResponse) => {});
-    },
-    setUserMsg(item) {
-      this.$store.commit("setUserId", item.id);
-      this.$store.commit("setUsername", item.username);
-      this.$store.commit("setAvator", item.avator);
-    },
-    goSignUp() {
-      this.$router.push({ path: "/sign-up" });
-    },
-    // 注册功能，注册成功后立即登录。
-    register() {},
+
+
   },
 };
 </script>
     
-    <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
+<style  scoped>
+ * {
+			margin: 0;
+			padding: 0;
+		}
 
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: url(../../src/../static/img/himawari.jpg) no-repeat;
-  background-size: cover;
-}
+		a {
+			text-decoration: none;
+		}
 
-@media screen and (max-width: 1025px) {
-  body {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url(../../src/../static/img/himawari.jpg) no-repeat;
-  }
-}
+		input,
+		.btn {
+			background: transparent;
+			border: 0;
+			outline: none;
+		}
 
-.box {
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 350px;
-  height: 380px;
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  background: rgba(50, 50, 50, 0.1);
-}
-@media screen and (max-width: 1025px) {
-  .box {
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 330px;
-    height: 330px;
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    border-left: 1px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    background: rgba(50, 50, 50, 0.1);
-  }
-}
+		body {
+			height: 100vh;
+			background: linear-gradient(#141e30, #243b55);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 16px;
+			color: #03e9f4;
+		}
 
-.box > h2 {
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 20px;
-}
+		.loginBox {
+			width: 400px;
+			height: 364px;
+			background-color: #0c1622;
+			margin: 100px auto;
+			border-radius: 10px;
+			box-shadow: 0 15px 25px 0 rgba(0, 0, 0, .6);
+			padding: 40px;
+			box-sizing: border-box;
+		}
 
-.box .input-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-  margin-bottom: 10px;
-}
+		h2 {
+			text-align: center;
+			color: aliceblue;
+			margin-bottom: 30px;
+			font-family: 'Courier New', Courier, monospace;
+		}
 
-.box .input-box > label {
-  margin-bottom: 5px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 13px;
-}
+		.item {
+			height: 45px;
+			border-bottom: 1px solid #fff;
+			margin-bottom: 40px;
+			position: relative;
+		}
 
-.box .input-box > input {
-  box-sizing: border-box;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
-  height: 35px;
-  width: 250px;
-  background: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
-  transition: 0.2s;
-  outline: none;
-  padding: 0 10px;
-  letter-spacing: 1px;
-}
+		.item input {
+			width: 100%;
+			height: 100%;
+			color: #fff;
+			padding-top: 20px;
+			box-sizing: border-box;
+		}
 
-.box .input-box > input:focus {
-  border: 1px solid rgba(255, 255, 255, 0.8);
-}
+		.item input:focus+label,
+		.item input:valid+label {
+			top: 0px;
+			font-size: 2px;
+		}
 
-.box .btn-box {
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-}
+		.item label {
+			position: absolute;
+			left: 0;
+			top: 5px;
+			transition: all 0.5s linear;
+		}
 
-.box .btn-box > a {
-  font-size: 14px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.9);
-  transition: 0.2s;
-  width: 250px;
-  text-align: end;
-}
+		.btn {
+			padding: 10px 20px;
+			margin-top: 30px;
+			color: #03e9f4;
+			position: relative;
+			overflow: hidden;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			left: 35%;
+		}
 
-.box .btn-box > a:hover {
-  color: rgba(255, 255, 255, 1);
-}
+		.btn:hover {
+			border-radius: 5px;
+			color: #fff;
+			background: #03e9f4;
+			box-shadow: 0 0 5px 0 #03e9f4,
+				0 0 25px 0 #03e9f4,
+				0 0 50px 0 #03e9f4,
+				0 0 100px 0 #03e9f4;
+			transition: all 1s linear;
+		}
 
-.box .btn-box > div {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: start;
-  margin-top: 20px;
-}
+		.btn>span {
+			position: absolute;
+		}
 
-.box .btn-box > div > button {
-  width: 120px;
-  height: 35px;
-  border: 1px solid rgba(197, 81, 58, 0.8);
-  background: rgba(197, 81, 58, 0.5);
-  color: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
-  transition: 0.2s;
-}
+		.btn>span:nth-child(1) {
+			width: 100%;
+			height: 2px;
+			background: -webkit-linear-gradient(left, transparent, #03e9f4);
+			left: -100%;
+			top: 0px;
+			animation: line1 2.3s linear infinite;
+		}
 
-.box .btn-box > div > button:nth-of-type(2) {
-  margin-left: 10px;
-}
+		@keyframes line1 {
 
-.box .btn-box > div > button:hover {
-  border: 1px solid rgba(248, 108, 76, 0.5);
-  background: rgba(248, 108, 76, 0.5);
-}
+			50%,
+			100% {
+				left: 100%;
+			}
+		}
+
+		.btn>span:nth-child(2) {
+			width: 2px;
+			height: 100%;
+			background: -webkit-linear-gradient(top, transparent, #03e9f4);
+			right: 0px;
+			top: -100%;
+			animation: line2 2.3s 0.25s linear infinite;
+		}
+
+		@keyframes line2 {
+
+			50%,
+			100% {
+				top: 100%;
+			}
+		}
+
+		.btn>span:nth-child(3) {
+			width: 100%;
+			height: 2px;
+			background: -webkit-linear-gradient(left, #03e9f4, transparent);
+			left: 100%;
+			bottom: 0px;
+			animation: line3 2.3s 0.75s linear infinite;
+		}
+
+		@keyframes line3 {
+
+			50%,
+			100% {
+				left: -100%;
+			}
+		}
+
+		.btn>span:nth-child(4) {
+			width: 2px;
+			height: 100%;
+			background: -webkit-linear-gradient(top, transparent, #03e9f4);
+			left: 0px;
+			top: 100%;
+			animation: line4 2.3s 1s linear infinite;
+		}
+
+		@keyframes line4 {
+
+			50%,
+			100% {
+				top: -100%;
+			}
+		}
 </style>
     
