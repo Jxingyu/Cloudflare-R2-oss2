@@ -199,6 +199,11 @@
       </ul>
     </Dialog>
 
+
+    <Login>
+      
+    </Login>
+
     <!-- 音频上传弹出表单 -->
     <div v-if="insertSongFlag" class="dialog-overlay">
       <div class="dialog-container">
@@ -380,6 +385,7 @@ import {
 } from "/assets/main.mjs";
 import Dialog from "./Dialog.vue";
 import Menu from "./Menu.vue";
+import Login from "./Login.vue";
 import MimeIcon from "./MimeIcon.vue";
 import UploadPopup from "./UploadPopup.vue";
 export default {
