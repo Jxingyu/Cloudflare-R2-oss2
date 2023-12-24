@@ -507,8 +507,7 @@ export default {
       }
 
       console.log("submit!", this.form);
-      const api = "/iu/song/insert";
-      this.postFormData(this.form, api);
+      this.postFormData();
     },
 
     onPwdInput(e) {
@@ -685,8 +684,8 @@ export default {
     },
 
     // 上传音频
-    async postFormData(obj, api) {
-      var url = "https://www.iuui.cloud/yin/api" + api;
+    async postFormData() {
+      var url = "https://www.iuui.cloud/yin/api" + "/iu/song/insert";
         const formData = new FormData();
         formData.append("songName", this.form.songName);
         formData.append("songUrl", this.form.songUrl);
