@@ -676,7 +676,6 @@ export default {
         this.form.auPicUrl === "" ||
         this.form.label === ""
       ) {return;}
-      console.log("submit!", this.form);
 
       var url = "https://www.iuui.cloud/yin/api/iu/song/insert";
       try {
