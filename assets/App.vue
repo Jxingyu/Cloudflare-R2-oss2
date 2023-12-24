@@ -650,7 +650,7 @@ export default {
       // 删除音频
       var url = "https://www.iuui.cloud/yin/api/iu/song/del";
       const formData = new FormData();
-        formData.append("songName", key);
+        formData.append("songName", key.replace("/asmr",""));
         formData.append("token", localStorage.getItem('token'));
         const response = await axios.post(url, formData, {
           headers: {
