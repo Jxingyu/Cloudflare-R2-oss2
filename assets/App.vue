@@ -695,9 +695,7 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        if (response.data.code == null) {
-          alert(response.data.msg);
-        }
+        alert(response.data.msg);
     },
   },
 
