@@ -687,7 +687,6 @@ export default {
     // 上传音频
     async postFormData(obj, api) {
       var url = "https://www.iuui.cloud/yin/api" + api;
-      try {
         const formData = new FormData();
         formData.append("songName", this.form.songName);
         formData.append("songUrl", this.form.songUrl);
@@ -704,12 +703,8 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-
         alert(response.data.msg);
         this.insertSongFlag = false;
-      } catch (error) {
-        console.error(error);
-      }
     },
   },
 
