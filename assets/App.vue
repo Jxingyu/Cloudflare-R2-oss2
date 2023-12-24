@@ -690,7 +690,7 @@ export default {
         formData.append("label", this.form.label);
         formData.append("size", this.form.size);
         formData.append("token", localStorage.getItem('token'));
-        const response = await axios.post(url, formData, {
+        const response = axios.post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
