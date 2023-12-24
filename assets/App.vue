@@ -679,6 +679,7 @@ export default {
       console.log("submit!", this.form);
 
       var url = "https://www.iuui.cloud/yin/api/iu/song/insert";
+      try {
         const formData = new FormData();
         formData.append("songName", this.form.songName);
         formData.append("songUrl", this.form.songUrl);
@@ -696,7 +697,10 @@ export default {
           },
         });
         alert(response.data.msg);
-        return;
+      } catch (error) {
+        console.error(error);
+      } finally {
+      }
     },
   },
 
