@@ -362,7 +362,7 @@
               <button type="reset">
                 <span class="">重 置</span>
               </button>
-              <button class="" value="提 交" @click="insertSongApi()">
+              <button class="" value="提 交" @click="postFormData()">
                 <span class="">提 交</span>
               </button>
             </div>
@@ -490,24 +490,6 @@ export default {
           this.folders = files.folders;
           this.loading = false;
         });
-    },
-
-    //音频文件上传
-    insertSongApi() {
-      // 检查字段是否为空
-      if (
-        this.form.songName === "" ||
-        this.form.songUrl === "" ||
-        this.form.authorName === "" ||
-        this.form.picUrl === "" ||
-        this.form.auPicUrl === "" ||
-        this.form.label === ""
-      ) {
-        return;
-      }
-
-      console.log("submit!", this.form);
-      this.postFormData();
     },
 
     onPwdInput(e) {
@@ -685,7 +667,18 @@ export default {
 
     // 上传音频
     async postFormData() {
-      var url = "https://www.iuui.cloud/yin/api" + "/iu/song/insert";
+        // 检查字段是否为空
+        if (
+        this.form.songName === "" ||
+        this.form.songUrl === "" ||
+        this.form.authorName === "" ||
+        this.form.picUrl === "" ||
+        this.form.auPicUrl === "" ||
+        this.form.label === ""
+      ) {return;}
+      console.log("submit!", this.form);
+
+      var url = "https://www.iuui.cloud/yin/api/iu/song/insert";
         const formData = new FormData();
         formData.append("songName", this.form.songName);
         formData.append("songUrl", this.form.songUrl);
@@ -702,7 +695,7 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(response.data.msg);
+        alert(response.data.msg);
     },
   },
 
