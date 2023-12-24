@@ -703,8 +703,8 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        alert(response.data.msg);
         this.insertSongFlag = false;
+        alert(response.data.msg);
     },
   },
 
