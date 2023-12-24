@@ -362,7 +362,7 @@
               <button type="reset">
                 <span class="">重 置</span>
               </button>
-              <button class="" value="提 交" @click="postFormData()">
+              <button class="" value="提 交" @click="postFormData">
                 <span class="">提 交</span>
               </button>
             </div>
