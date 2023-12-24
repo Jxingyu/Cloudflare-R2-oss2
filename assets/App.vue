@@ -702,10 +702,7 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        if (response.data.code == 200) {
-        }
-        // this.insertSongFlag = false;
-        alert(response.data.msg);
+        console.log(response.data.msg);
     },
   },
 
