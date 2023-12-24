@@ -372,7 +372,7 @@
       </div>
     </div>
 
-    <Login v-if="loginFlag">
+    <Login :setMainFlag="setMainFlag" v-if="loginFlag">
       
     </Login>
   </div>
@@ -418,8 +418,8 @@ export default {
       label: "", //音频标签
       size: "", //音频大小
     },
-    mainFlag: true,
-    loginFlag: false,
+    mainFlag: false,
+    loginFlag: true,
   }),
 
   computed: {
@@ -443,6 +443,10 @@ export default {
   },
 
   methods: {
+    setMainFlag(value) {
+    this.mainFlag = value;
+    this.loginFlag = false
+    },
     copyLink(link) {
       const url = new URL(link, window.location.origin);
       navigator.clipboard.writeText(url.toString());
