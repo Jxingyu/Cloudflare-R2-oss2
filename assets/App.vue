@@ -666,7 +666,7 @@ export default {
     },
 
     // 上传音频
-    async postFormData() {
+    postFormData() {
         // 检查字段是否为空
         if (
         this.form.songName === "" ||
