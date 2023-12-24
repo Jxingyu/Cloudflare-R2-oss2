@@ -701,8 +701,11 @@ export default {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        },alert(response.data.msg));
-        this.insertSongFlag = false;
+        });
+        if (response.data.code == 200) {
+        }
+        // this.insertSongFlag = false;
+        alert(response.data.msg);
     },
   },
 
