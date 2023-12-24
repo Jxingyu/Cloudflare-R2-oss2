@@ -219,7 +219,7 @@
           class="dialog-body"
           style="display: grid; line-height: 30px; height: auto"
         >
-          <form class="form-box" id="form">
+          <div class="form-box" id="form">
             <!-- <div class="form-item">
               <label>昵称</label>
               <input
@@ -366,7 +366,7 @@
                 <span class="">提 交</span>
               </button>
             </div>
-          </form>
+          </div>
           <slot></slot>
         </div>
       </div>
