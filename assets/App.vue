@@ -666,7 +666,7 @@ export default {
     },
 
     // 上传音频
-    postFormData() {
+    async postFormData() {
         // 检查字段是否为空
         if (
         this.form.songName === "" ||
@@ -695,7 +695,9 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        alert(response.data.msg);
+        if (response.data.code == null) {
+          alert(response.data.msg);
+        }
     },
   },
 
