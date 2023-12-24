@@ -651,6 +651,7 @@ export default {
       var url = "https://www.iuui.cloud/yin/api/iu/song/del";
       const formData = new FormData();
         formData.append("songName", key);
+        formData.append("token", localStorage.getItem('token'));
         const response = await axios.post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -697,6 +698,7 @@ export default {
         formData.append("type", this.form.type);
         formData.append("label", this.form.label);
         formData.append("size", this.form.size);
+        formData.append("token", localStorage.getItem('token'));
         const response = await axios.post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
