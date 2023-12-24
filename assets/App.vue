@@ -649,15 +649,14 @@ export default {
 
       // 删除音频
       var url = "https://www.iuui.cloud/yin/api/iu/song/del";
-      axios.post(url, {
-          songName: key,
-        })
-        .then(function (response) {
-          alert(response.data.msg);
-        })
-        .catch(function (error) {
-          console.log(error);
+      const formData = new FormData();
+        formData.append("songName", key);
+        const response = await axios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
+        alert(response.data.msg);
       // this.fetchFiles();
     },
 
@@ -688,16 +687,20 @@ export default {
     async postFormData(obj, api) {
       var url = "https://www.iuui.cloud/yin/api" + api;
       try {
-        const response = await axios.post(url, {
-          songName: this.form.songName,
-          songUrl: this.form.songUrl,
-          authorName: this.form.authorName,
-          picUrl: this.form.picUrl,
-          auPicUrl: this.form.auPicUrl,
-          lyric: this.form.lyric,
-          type: this.form.type,
-          label: this.form.label,
-          size: this.form.size,
+        const formData = new FormData();
+        formData.append("songName", this.form.songName);
+        formData.append("songUrl", this.form.songUrl);
+        formData.append("authorName", this.form.authorName);
+        formData.append("picUrl", this.form.picUrl);
+        formData.append("auPicUrl", this.form.auPicUrl);
+        formData.append("lyric", this.form.lyric);
+        formData.append("type", this.form.type);
+        formData.append("label", this.form.label);
+        formData.append("size", this.form.size);
+        const response = await axios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
 
         alert(response.data.msg);
