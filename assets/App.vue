@@ -696,6 +696,7 @@ export default {
           },
         });
         alert(response.data.msg);
+        return;
     },
   },
 
