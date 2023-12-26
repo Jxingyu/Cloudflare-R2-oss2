@@ -720,7 +720,7 @@ export default {
 
     async checkToken() {
       // 检查token期限
-      var url = "https://www.iuui.cloud/yin/api/iu/song/del";
+      var url = "https://www.iuui.cloud/yin/api/iu/check/token";
       const formData = new FormData();
       formData.append("username", localStorage.getItem("username"));
       formData.append("token", localStorage.getItem("token"));
