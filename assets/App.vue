@@ -725,6 +725,10 @@ export default {
           "Content-Type": "multipart/form-data",
         },
       });
+      if (response.data.msg === "OK") {
+        this.mainFlag = true;
+        this.loginFlag = false;
+      }
     },
   },
 
