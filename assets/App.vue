@@ -452,6 +452,10 @@ export default {
       return folders;
     },
   },
+  
+  mounted() {
+    checkToken();
+  },
 
   methods: {
     setMainFlag(value) {
@@ -759,9 +763,6 @@ export default {
     });
   },
 
-  mounted() {
-    checkToken();
-  },
   components: {
     Dialog,
     Menu,
