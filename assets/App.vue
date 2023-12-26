@@ -6,12 +6,17 @@
       max="100"
     ></progress>
 
-    <UploadPopup v-if="mainFlag"
+    <UploadPopup
+      v-if="mainFlag"
       v-model="showUploadPopup"
       @upload="onUploadClicked"
       @createFolder="createFolder"
     ></UploadPopup>
-    <button v-if="mainFlag" class="upload-button circle m-button" @click="showUploadPopup = true">
+    <button
+      v-if="mainFlag"
+      class="upload-button circle m-button"
+      @click="showUploadPopup = true"
+    >
       <img
         style="filter: invert(100%)"
         src="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/4.0.0/png/file/upload_file/materialicons/36dp/2x/baseline_upload_file_black_36dp.png"
@@ -165,12 +170,16 @@
       ></div>
       <ul v-if="typeof focusedItem === 'string'" class="contextmenu-list">
         <li>
-          <button class="m-button" @click="copyLink(`/?p=${encodeURIComponent(focusedItem)}`)">
+          <button
+            class="m-button"
+            @click="copyLink(`/?p=${encodeURIComponent(focusedItem)}`)"
+          >
             <span>复制链接</span>
           </button>
         </li>
         <li>
-          <button class="m-button"
+          <button
+            class="m-button"
             style="color: red"
             @click="removeFile(focusedItem + '_$folder$')"
           >
@@ -195,7 +204,11 @@
           </button>
         </li>
         <li>
-          <button class="m-button" style="color: red" @click="removeFile(focusedItem.key)">
+          <button
+            class="m-button"
+            style="color: red"
+            @click="removeFile(focusedItem.key)"
+          >
             <span>删除</span>
           </button>
         </li>
@@ -207,7 +220,7 @@
       <div class="dialog-container">
         <div class="dialog-header">
           <span class="dialog-title">{{ title }}</span>
-          <button 
+          <button
             @click="insertSongFlag = false"
             style="padding-left: 100px"
             class="dialog-close-btn m-button"
@@ -372,9 +385,7 @@
       </div>
     </div>
 
-    <Login :setMainFlag="setMainFlag" v-if="loginFlag">
-      
-    </Login>
+    <Login :setMainFlag="setMainFlag" v-if="loginFlag"> </Login>
   </div>
 </template>
 
@@ -444,8 +455,8 @@ export default {
 
   methods: {
     setMainFlag(value) {
-    this.mainFlag = value;
-    this.loginFlag = false
+      this.mainFlag = value;
+      this.loginFlag = false;
     },
     copyLink(link) {
       const url = new URL(link, window.location.origin);
@@ -584,13 +595,12 @@ export default {
       }
 
       try {
-        
         const uploadUrl = `/api/write/items/${basedir}${file.name}`;
         const headers = {};
         const cloudUrl = "https://mycloud-6o0.pages.dev/raw/";
         this.form.songName = file.name;
         this.form.songUrl = cloudUrl + uploadUrl;
-        this.form.songUrl = this.form.songUrl.replace("/api/write/items/","");
+        this.form.songUrl = this.form.songUrl.replace("/api/write/items/", "");
         this.form.type = file.type;
         this.form.size = file.size;
         this.insertSongFlag = true;
@@ -631,14 +641,14 @@ export default {
       // 删除音频
       var url = "https://www.iuui.cloud/yin/api/iu/song/del";
       const formData = new FormData();
-        formData.append("songName", key.replace("/asmr",""));
-        formData.append("token", localStorage.getItem('token'));
-        const response = await axios.post(url, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        alert(response.data.msg);
+      formData.append("songName", key.replace("/asmr", ""));
+      formData.append("token", localStorage.getItem("token"));
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      alert(response.data.msg);
       // this.fetchFiles();
     },
 
@@ -667,15 +677,17 @@ export default {
 
     // 上传音频
     async postFormData() {
-        // 检查字段是否为空
-        if (
+      // 检查字段是否为空
+      if (
         this.form.songName === "" ||
         this.form.songUrl === "" ||
         this.form.authorName === "" ||
         this.form.picUrl === "" ||
         this.form.auPicUrl === "" ||
         this.form.label === ""
-      ) {return;}
+      ) {
+        return;
+      }
 
       var url = "https://www.iuui.cloud/yin/api/iu/song/insert";
       try {
@@ -689,7 +701,7 @@ export default {
         formData.append("type", this.form.type);
         formData.append("label", this.form.label);
         formData.append("size", this.form.size);
-        formData.append("token", localStorage.getItem('token'));
+        formData.append("token", localStorage.getItem("token"));
         const response = await axios.post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -701,9 +713,21 @@ export default {
       } finally {
       }
     },
+
+    async checkToken() {
+      // 检查token期限
+      var url = "https://www.iuui.cloud/yin/api/iu/song/del";
+      const formData = new FormData();
+      formData.append("username", localStorage.getItem("username"));
+      formData.append("token", localStorage.getItem("token"));
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
   },
 
-  
   watch: {
     cwd: {
       handler() {
@@ -731,7 +755,9 @@ export default {
     });
   },
 
-  mounted() {},
+  mounted() {
+    checkToken();
+  },
   components: {
     Dialog,
     Menu,
@@ -909,10 +935,10 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:checked::after {
   transform: translateX(30px);
 }
-.submit-btn{
+.submit-btn {
   text-align: center;
 }
-.submit-btn button{
+.submit-btn button {
   width: 48%;
   height: 40px;
   padding: 0;

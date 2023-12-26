@@ -60,8 +60,8 @@ export default {
     return {
       loginForm: {
         // 登录用户名密码
-        username: "akali",
-        password: "0000",
+        username: "",
+        password: "",
         emailCode: "",
       },
       rules: {
@@ -88,7 +88,9 @@ export default {
         formData.append("username", this.username);
         formData.append("password", this.password);
         formData.append("emailCode", this.emailCode);
-
+        if (null !== this.username) {
+          localStorage.setItem("username",this.username)
+        }
         const response = await axios.post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
