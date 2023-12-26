@@ -454,7 +454,7 @@ export default {
   },
   
   mounted() {
-    checkToken();
+    this.checkToken();
   },
 
   methods: {
