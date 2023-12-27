@@ -452,7 +452,7 @@ export default {
       return folders;
     },
   },
-  
+
   mounted() {
     this.checkToken();
   },
@@ -599,7 +599,19 @@ export default {
       }
 
       try {
-        const uploadUrl = `/api/write/items/${basedir}${file.name}`;
+        // 雪花算法 获取url
+        // TODO 1.写个API 在上传前获取 sonwUrl
+        let sonwUrl = "092133888881020"
+        let fileName = file.name;
+        const fileType = getFileExtension(fileName);
+        function getFileExtension(fileName) {
+          return fileName.split(".").pop();
+        }
+        fileName = fileName.replace(fileType, "") + sonwUrl;
+        fileName = fileName.replace(".","");
+        fileName = fileName + "." + fileType;
+
+        const uploadUrl = `/api/write/items/${basedir}${fileName}`;
         const headers = {};
         const cloudUrl = "https://mycloud-6o0.pages.dev/raw/";
         this.form.songName = file.name;
