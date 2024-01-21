@@ -609,7 +609,6 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        alert(response.data);
         let sonwUrl = "";
         if (response.msg == "ok") {
           sonwUrl = response.data;
