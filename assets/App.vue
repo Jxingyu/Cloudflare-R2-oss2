@@ -599,16 +599,28 @@ export default {
       }
 
       try {
+        //  1.API 在上传前获取 sonwUrl
         // 雪花算法 获取url
-        // TODO 1.写个API 在上传前获取 sonwUrl
-        let sonwUrl = "092133888881020"
+        var url = "https://www.iuui.cloud/yin/api/util/snowflake";
+        const formData = new FormData();
+        formData.append("token", localStorage.getItem("token"));
+        const response = await axios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        alert(response.data);
+        let sonwUrl = "";
+        if (response.msg == "ok") {
+          sonwUrl = response.data;
+        }
         let fileName = file.name;
         const fileType = getFileExtension(fileName);
         function getFileExtension(fileName) {
           return fileName.split(".").pop();
         }
         fileName = fileName.replace(fileType, "") + sonwUrl;
-        fileName = fileName.replace(".","");
+        fileName = fileName.replace(".", "");
         fileName = fileName + "." + fileType;
 
         const uploadUrl = `/api/write/items/${basedir}${fileName}`;
