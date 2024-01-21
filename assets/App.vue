@@ -610,8 +610,7 @@ export default {
           },
         });
         let sonwUrl = "";
-          sonwUrl = response.data;
-          alert(JSON.stringify(response.data))
+          sonwUrl = response.data.data;
           alert(JSON.stringify(sonwUrl))
         let fileName = file.name;
         const fileType = getFileExtension(fileName);
