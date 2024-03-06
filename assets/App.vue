@@ -601,7 +601,7 @@ export default {
       try {
         //  1.API 在上传前获取 sonwUrl
         // 雪花算法 获取url
-        var url = "https://siko.com/yin/api/util/snowflake";
+        var url = "https://sikoapp.com/yin/api/util/snowflake";
         const formData = new FormData();
         formData.append("token", localStorage.getItem("token"));
         const response = await axios.post(url, formData, {
@@ -664,7 +664,7 @@ export default {
       await axios.delete(`/api/write/items/${key}`);
 
       // 删除音频
-      var url = "https://siko.com/yin/api/iu/song/del";
+      var url = "https://sikoapp.com/yin/api/iu/song/del";
       const formData = new FormData();
       formData.append("songName", key.replace("/asmr", ""));
       formData.append("token", localStorage.getItem("token"));
@@ -714,7 +714,7 @@ export default {
         return;
       }
 
-      var url = "https://siko.com/yin/api/iu/song/insert";
+      var url = "https://sikoapp.com/yin/api/iu/song/insert";
       try {
         const formData = new FormData();
         formData.append("songName", this.form.songName);
@@ -741,7 +741,7 @@ export default {
 
     async checkToken() {
       // 检查token期限
-      var url = "https://siko.com/yin/api/iu/check/token";
+      var url = "https://sikoapp.com/yin/api/iu/check/token";
       const formData = new FormData();
       formData.append("username", localStorage.getItem("username"));
       formData.append("token", localStorage.getItem("token"));
