@@ -82,7 +82,7 @@ export default {
   methods: {
     // ログイン
     async login() {
-      var url = "https://www.iuui.cloud/yin/api" + "/user/login/status";
+      var url = "https://siko.com/yin/api" + "/user/login/status";
       try {
         const formData = new FormData();
         formData.append("username", this.username);
@@ -113,7 +113,7 @@ export default {
 
     // メ ー ル
     async emailCodeApi() {
-      var url = "https://www.iuui.cloud/yin/api" + "/send/self/code";
+      var url = "https://siko.com/yin/api" + "/send/self/code";
       try {
         const response = await axios.post(url, {});
 
