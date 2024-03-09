@@ -660,13 +660,15 @@ export default {
     },
 
     async removeFile(key) {
-      const fileName = key.replace(/.*\//,"")
-      if (!window.confirm(`确定要删除 ${fileName} 吗？`)) return;
-      await axios.delete(`/api/write/items/${fileName}`);
+      const fileUrl = "https://mycloud-6o0.pages.dev/raw/"+key
+      if (!window.confirm(`确定要删除 ${key.replace(/.*\//,"")} 吗？`)) return;
+      await axios.delete(`/api/write/items/${fileUrl}`);
+
       // 删除音频
       var url = "https://sikoapp.com/yin/api/iu/song/del";
       const formData = new FormData();
-      formData.append("songName",fileName);
+      
+      formData.append("songUrl",fileUrl);
       formData.append("token", localStorage.getItem("token"));
       const response = await axios.post(url, formData, {
         headers: {
