@@ -663,7 +663,7 @@ export default {
       const fileUrl = "https://mycloud-6o0.pages.dev/raw/"+key;
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       const r2 = await axios.delete(`/api/write/items/${key}`);
-      alert(r2);
+      console.log(JSON.stringify(r2));
       if (key.includes("asmr")) {
         // 删除音频
         var url = "https://sikoapp.com/yin/api/iu/song/del";
