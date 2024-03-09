@@ -670,8 +670,9 @@ export default {
       const index = key.lastIndexOf('/');
       if (index !== -1) {
         return key.substring(index + 1);
+        key2 = key;
       }
-      key2 = key;
+      
       formData.append("songName", key2);
       formData.append("token", localStorage.getItem("token"));
       const response = await axios.post(url, formData, {
