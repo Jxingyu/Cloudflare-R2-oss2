@@ -664,19 +664,20 @@ export default {
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${key}`);
 
-      // 删除音频
-      var url = "https://sikoapp.com/yin/api/iu/song/del";
-      const formData = new FormData();
-      
-      formData.append("songUrl",fileUrl);
-      formData.append("token", localStorage.getItem("token"));
-      const response = await axios.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      alert(response.data.msg);
-      // this.fetchFiles();
+      if (key.includes("asmr")) {
+        // 删除音频
+        var url = "https://sikoapp.com/yin/api/iu/song/del";
+        const formData = new FormData();
+        formData.append("songUrl",fileUrl);
+        formData.append("token", localStorage.getItem("token"));
+        const response = await axios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        alert(response.data.msg);
+        // this.fetchFiles();
+      }
     },
 
     async renameFile(key) {
