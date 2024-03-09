@@ -660,8 +660,8 @@ export default {
     },
 
     async removeFile(key) {
-      const fileUrl = "https://mycloud-6o0.pages.dev/raw/"+key
-      if (!window.confirm(`确定要删除 ${key.replace(/.*\//,"")} 吗？`)) return;
+      const fileUrl = "https://mycloud-6o0.pages.dev/raw/"+key;
+      if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       await axios.delete(`/api/write/items/${fileUrl}`);
 
       // 删除音频
