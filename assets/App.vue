@@ -666,14 +666,7 @@ export default {
       // 删除音频
       var url = "https://sikoapp.com/yin/api/iu/song/del";
       const formData = new FormData();
-      const key2 = "";
-      const index = key.lastIndexOf('/');
-      if (index !== -1) {
-        return key.substring(index + 1);
-        key2 = key;
-      }
-      alert(key2);
-      formData.append("songName", key2);
+      formData.append("songName", key.replace("/asmr", ""));
       formData.append("token", localStorage.getItem("token"));
       const response = await axios.post(url, formData, {
         headers: {
