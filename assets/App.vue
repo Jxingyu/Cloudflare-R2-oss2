@@ -662,7 +662,7 @@ export default {
     async removeFile(key) {
       const fileUrl = "https://mycloud-6o0.pages.dev/raw/"+key;
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
-      await axios.delete(`/api/write/items/${fileUrl}`);
+      await axios.delete(`/api/write/items/${key}`);
 
       // 删除音频
       var url = "https://sikoapp.com/yin/api/iu/song/del";
