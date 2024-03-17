@@ -46,7 +46,7 @@
         </button>
         <Menu
           v-model="showMenu"
-          :items="[{ text: '名称A-Z' }, { text: '大小↑' }, { text: '大小↓' }]"
+          :items="[{ text: '名称A-Z' }, { text: '大小↑' }, { text: '大小↓' },{ text: '时间↑' }, { text: '时间↓' }]"
           @click="onMenuClick"
         />
       </div>
@@ -486,8 +486,6 @@ export default {
     },
 
     fetchFiles() {
-      //登录验证
-      // alert('まずloginのソースを書きる');
       this.files = [];
       this.folders = [];
       this.loading = true;
@@ -550,6 +548,7 @@ export default {
           break;
       }
       this.files.sort((a, b) => {
+        alert(a+'*********'+ b)
         if (this.order === "大小↑") {
           return a.size - b.size;
         } else if (this.order === "大小↓") {
