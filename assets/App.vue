@@ -47,11 +47,11 @@
         <Menu
           v-model="showMenu"
           :items="[
+            { text: '时间↓' },
+            { text: '时间↑' },
             { text: '名称A-Z' },
             { text: '大小↑' },
             { text: '大小↓' },
-            { text: '时间↑' },
-            { text: '时间↓' },
           ]"
           @click="onMenuClick"
         />
