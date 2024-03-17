@@ -542,6 +542,12 @@ export default {
         case "大小↓":
           this.order = "大小↓";
           break;
+        case "时间↑":
+          this.order = "时间↑";
+          break;
+        case "时间↓":
+          this.order = "时间↓";
+          break;
       }
       this.files.sort((a, b) => {
         if (this.order === "大小↑") {
@@ -660,7 +666,7 @@ export default {
     },
 
     async removeFile(key) {
-      const fileUrl = "https://mycloud-6o0.pages.dev/raw/"+key;
+      const fileUrl = "https://mycloud-6o0.pages.dev/raw/" + key;
       if (!window.confirm(`确定要删除 ${key} 吗？`)) return;
       const r2 = await axios.delete(`/api/write/items/${key}`);
       console.log(JSON.stringify(r2));
@@ -668,7 +674,7 @@ export default {
         // 删除音频
         var url = "https://sikoapp.com/api/iu/song/del";
         const formData = new FormData();
-        formData.append("songUrl",fileUrl);
+        formData.append("songUrl", fileUrl);
         formData.append("token", localStorage.getItem("token"));
         const response = await axios.post(url, formData, {
           headers: {
