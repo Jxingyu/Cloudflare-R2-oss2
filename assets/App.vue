@@ -548,7 +548,7 @@ export default {
           break;
       }
       this.files.sort((a, b) => {
-        alert(stringify.toString(a)+'*********'+ stringify.toString(b))
+        console.log(a+'*********'+b);
         if (this.order === "大小↑") {
           return a.size - b.size;
         } else if (this.order === "大小↓") {
