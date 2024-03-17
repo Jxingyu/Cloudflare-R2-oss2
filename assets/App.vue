@@ -461,9 +461,7 @@ export default {
 
   mounted() {
     this.checkToken();
-    
-    // 在组件创建时设置默认排序方式为时间倒序
-    this.onMenuClick();
+    this.fetchFiles();
   },
 
   methods: {
