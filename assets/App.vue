@@ -414,7 +414,7 @@ export default {
     folders: [],
     focusedItem: null,
     loading: false,
-    order: null,
+    order: "大小↓",
     search: "",
     showContextMenu: false,
     showMenu: false,
@@ -795,7 +795,7 @@ export default {
 
   created() {
     // 在组件创建时设置默认排序方式为时间倒序
-    this.order = "时间↓";
+    this.onMenuClick();
     
     window.addEventListener("popstate", (ev) => {
       const searchParams = new URL(window.location).searchParams;
