@@ -461,6 +461,9 @@ export default {
 
   mounted() {
     this.checkToken();
+    
+    // 在组件创建时设置默认排序方式为时间倒序
+    this.onMenuClick();
   },
 
   methods: {
@@ -794,9 +797,6 @@ export default {
   },
 
   created() {
-    // 在组件创建时设置默认排序方式为时间倒序
-    this.onMenuClick();
-    
     window.addEventListener("popstate", (ev) => {
       const searchParams = new URL(window.location).searchParams;
       if (searchParams.get("p") !== this.cwd)
