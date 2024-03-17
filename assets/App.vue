@@ -794,6 +794,9 @@ export default {
   },
 
   created() {
+    // 在组件创建时设置默认排序方式为时间倒序
+    this.order = "时间↓";
+    
     window.addEventListener("popstate", (ev) => {
       const searchParams = new URL(window.location).searchParams;
       if (searchParams.get("p") !== this.cwd)
