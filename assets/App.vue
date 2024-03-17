@@ -461,7 +461,6 @@ export default {
 
   mounted() {
     this.checkToken();
-    this.fetchFiles();
   },
 
   methods: {
@@ -502,9 +501,11 @@ export default {
           this.files = files.value;
           if (this.order) {
             this.files.sort((a, b) => {
-              if (this.order === "size") {
-                return b.size - a.size;
-              }
+              // if (this.order === "size") {
+              //   return b.size - a.size;
+              // }
+              // 默认按时间倒序排序
+              return new Date(b.uploaded) - new Date(a.uploaded);
             });
           }
           this.folders = files.folders;
