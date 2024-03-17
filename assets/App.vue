@@ -46,7 +46,13 @@
         </button>
         <Menu
           v-model="showMenu"
-          :items="[{ text: '名称A-Z' }, { text: '大小↑' }, { text: '大小↓' },{ text: '时间↑' }, { text: '时间↓' }]"
+          :items="[
+            { text: '名称A-Z' },
+            { text: '大小↑' },
+            { text: '大小↓' },
+            { text: '时间↑' },
+            { text: '时间↓' },
+          ]"
           @click="onMenuClick"
         />
       </div>
@@ -548,11 +554,14 @@ export default {
           break;
       }
       this.files.sort((a, b) => {
-        console.log(a+'*********'+b);
         if (this.order === "大小↑") {
           return a.size - b.size;
         } else if (this.order === "大小↓") {
           return b.size - a.size;
+        } else if (this.order === "时间↑") {
+          return new Date(a.uploaded) - new Date(b.uploaded);
+        } else if (this.order === "时间↓") {
+          return new Date(b.uploaded) - new Date(a.uploaded);
         } else {
           return a.key.localeCompare(b.key);
         }
