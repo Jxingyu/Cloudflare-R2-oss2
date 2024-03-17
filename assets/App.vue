@@ -414,7 +414,7 @@ export default {
     folders: [],
     focusedItem: null,
     loading: false,
-    order: null,
+    order: "时间↓",
     search: "",
     showContextMenu: false,
     showMenu: false,
