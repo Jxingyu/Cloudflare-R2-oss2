@@ -1,60 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="pragram" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="expires" content="0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>文件库</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
-    <!--网页标题左侧显示-->
-    <link rel="icon" href="/assets/img/山楂.png" type="image/x-icon">
-    <!--收藏夹显示图标-->
-    <link rel="shortcut icon" href="1111.ico" type="image/x-icon">
-    <link rel="prefetch" href="/assets/main.mjs" />
-    <link rel="prefetch" href="/assets/MimeIcon.vue" />
-    <link rel="stylesheet" href="/assets/main.css" />
-    <link rel="manifest" href="/assets/manifest.json" />
-  </head>
-  <body>
-    <div id="app"></div>
-    <script>
-      const { loadModule } = window["vue3-sfc-loader"];
 
-      const options = {
-        moduleCache: { vue: Vue },
-        async getFile(url) {
-          const res = await fetch(url);
-          if (!res.ok)
-            throw Object.assign(new Error(res.statusText + " " + url), { res });
-          return {
-            getContentData: (asBinary) =>
-              asBinary ? res.arrayBuffer() : res.text(),
-          };
-        },
-        addStyle(textContent) {
-          const style = document.createElement("style");
-          style.textContent = textContent;
-          const ref = document.head.getElementsByTagName("style")[0] || null;
-          document.head.insertBefore(style, ref);
-        },
-      };
+<head>
+  <!--网页标题左侧显示-->
+  <link rel="icon" href="/assets/img/山楂.png" type="image/x-icon">
+  <!--收藏夹显示图标-->
+  <link rel="shortcut icon" href="1111.ico" type="image/x-icon">
+  <link rel="prefetch" href="/assets/main.mjs" />
+  <link rel="prefetch" href="/assets/MimeIcon.vue" />
+  <link rel="stylesheet" href="/assets/main.css" />
+  <link rel="manifest" href="/assets/manifest.json" />
+  <meta charset="utf-8" />
+  <meta http-equiv="pragram" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文件库</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
 
-      const app = Vue.createApp({
-        components: {
-          App: Vue.defineAsyncComponent(() =>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    const { loadModule } = window["vue3-sfc-loader"];
+
+    const options = {
+      moduleCache: { vue: Vue },
+      async getFile(url) {
+        const res = await fetch(url);
+        if (!res.ok)
+          throw Object.assign(new Error(res.statusText + " " + url), { res });
+        return {
+          getContentData: (asBinary) =>
+            asBinary ? res.arrayBuffer() : res.text(),
+        };
+      },
+      addStyle(textContent) {
+        const style = document.createElement("style");
+        style.textContent = textContent;
+        const ref = document.head.getElementsByTagName("style")[0] || null;
+        document.head.insertBefore(style, ref);
+      },
+    };
+
+    const app = Vue.createApp({
+      components: {
+        App: Vue.defineAsyncComponent(() =>
           loadModule("/assets/App.vue", options)
-          ),
-        },
-        template: "<App></App>",
-      });
+        ),
+      },
+      template: "<App></App>",
+    });
 
-      app.mount("#app");
-    </script>
+    app.mount("#app");
+  </script>
 
-    <script type="module"></script>
-  </body>
+  <script type="module"></script>
+</body>
+
 </html>
